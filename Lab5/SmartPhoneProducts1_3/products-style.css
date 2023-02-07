@@ -1,0 +1,44 @@
+/* Created in Inspect Element on Chrome */
+/* General */  
+body {
+    color:darkblue;
+    width: 800px; margin: 0 auto;
+    background-image: url(https://dport96.github.io/ITM352/morea/030.ui-basics/phone_globe.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  }
+  /* block styling */ 
+  body>div{
+      border: 5px solid black;
+  display: flex;
+  }
+  /* Styling the products display */
+  img{
+      width:200px;height:200px;
+  }
+  /* Typography */
+  h1,h2{
+      text-align:center
+  }
+  /* Form styling */
+  main{
+      display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  }
+
+  .rotate img
+  {
+    animation: rotation .3s infinite linear;
+  }
+  
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+ }
+  
