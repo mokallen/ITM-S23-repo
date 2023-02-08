@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="products-style.css">
+    
     <title>Smartphone Products</title>
-    <script>
-        const store_name = "Monika Koko Allen";
-        document.write(store_name);   
-    </script>
+    
+        <script>
+            var store_name = "Monika Koko Allen";   
+        </script>
     <h1>
-        Used Smart Phone Store
+        <span id="s_name"></span>'s Used Smart Phone Store
     </h1>
+        <script>
+            s_name.innerHTML = store_name;
+        </script>
+   
     <p style="text-align: center; font-weight: bold;">
         Hits:<span id="hits_span">0</span>
         Spins:<span id="spins_span">0</span>
-        </p>        
+    </p>        
 </head>
         
-<body onload="hits_span.innerHTML = hits; spins_span.innerHTML = spins;"> 
+<body onload="hits_span.innerHTML = hits; spins_span.innerHTML = spins;">
     <div><main>
         <section class="item" onmouseover="this.className='item rotate'; spins_span.innerHTML = spins++;" onclick="this.className='item'; hits_span.innerHTML = ++hits;">
             <h2>HTC</h2>
@@ -48,16 +55,16 @@
         </section>
     </main></div>  
 </body>
+
 <footer> 
     <h1>
-    Your One Stop Phone Shop
-    <script>
-        document.write(store_name)
-    </script>
+    Your One Stop Phone Shop <script>document.write(store_name)</script>
     </h1>
 </footer>
+
 <script>
     var hits = 0;
     var spins = 1;
 </script>
+
 </html>
