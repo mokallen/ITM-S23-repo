@@ -9,19 +9,25 @@
     <link rel="stylesheet" href="products-style.css">
     
     <title>Smartphone Products</title>
-    
         <script>
             var store_name = "Monika Koko Allen";
             var hits = 0;
-            var spins = 0;   
+            var spins = 0;
+            var first_name = "Monika";
+            var last_name = "Allen"; 
+            var initials = `${first_name[0]}. ${last_name[0]}.`;
+            var full_name = first_name + last_name;
+            const name_header = `<header><h1 style="font-size: 3em"><b>${first_name}</b> <i>${last_name}</i></h1></header>`;
         </script>
     
-    <h1>
-        <span id="s_name"></span>'s Used Smart Phone Store
+    <h1 
+    style="font-size: 5em"><b>Monika</b> <i>Allen</i>'s
     </h1>
+    
+    <h1>Used Smart Phone Store</h1>
         
         <script>
-            s_name.innerHTML = store_name;
+            s_name.innerHTML = name_display;
         </script>
    
     <p style="text-align: center; font-weight: bold;">
@@ -34,6 +40,7 @@
 </head>
         
 <body>
+
     <div><main>
         
         <section class="item" 
@@ -48,9 +55,9 @@
          
          <section class="item" 
          onmouseover="this.className='item rotate'; spins_span.innerHTML = ++spins;
-         hit_spin_span.innerHTML = hits_span.innerHTML/spins_span.innerHTML;"
+         hit_spin_span.innerHTML = (hits_span.innerHTML/spins_span.innerHTML).toFixed(2);"
          onclick="this.className='item'; hits_span.innerHTML = ++hits;
-         hit_spin_span.innerHTML = hits_span.innerHTML/spins_span.innerHTML;">
+         hit_spin_span.innerHTML = (hits_span.innerHTML/spins_span.innerHTML).toFixed(2);">
             <h2>Apple</h2>
             <p>$75.00</p>
             <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg">
@@ -58,9 +65,9 @@
        
         <section class="item" 
         onmouseover="this.className='item rotate'; spins_span.innerHTML = ++spins;
-        hit_spin_span.innerHTML = hits_span.innerHTML/spins_span.innerHTML;" 
+        hit_spin_span.innerHTML = (hits_span.innerHTML/spins_span.innerHTML).toFixed(2);" 
         onclick="this.className='item'; hits_span.innerHTML = ++hits;
-        hit_spin_span.innerHTML = hits_span.innerHTML/spins_span.innerHTML;">
+        hit_spin_span.innerHTML = (hits_span.innerHTML/spins_span.innerHTML).toFixed(2);">
             <h2>Nokia</h2>
             <p>$35.00</p>
             <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg">
@@ -68,9 +75,9 @@
         
         <section class="item" 
         onmouseover="this.className='item rotate'; spins_span.innerHTML = ++spins;
-        hit_spin_span.innerHTML = hits_span.innerHTML/spins_span.innerHTML;" 
+        hit_spin_span.innerHTML = (hits_span.innerHTML/spins_span.innerHTML).toFixed(2);" 
         onclick="this.className='item'; hits_span.innerHTML = ++hits;
-        hit_spin_span.innerHTML = hits_span.innerHTML/spins_span.innerHTML;">
+        hit_spin_span.innerHTML = (hits_span.innerHTML/spins_span.innerHTML).toFixed(2);">
             <h2>Samsung</h2>
             <p>$45.00</p>
             <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg">
@@ -78,9 +85,9 @@
         
         <section class="item" 
         onmouseover="this.className='item rotate'; spins_span.innerHTML = ++spins;
-        hit_spin_span.innerHTML = hits_span.innerHTML/spins_span.innerHTML;" 
+        hit_spin_span.innerHTML = (hits_span.innerHTML/spins_span.innerHTML).toFixed(2);" 
         onclick="this.className='item'; hits_span.innerHTML = ++hits;
-        hit_spin_span.innerHTML = hits_span.innerHTML/spins_span.innerHTML;">
+        hit_spin_span.innerHTML = (hits_span.innerHTML/spins_span.innerHTML).toFixed(2);">
             <h2>Blackberry</h2>
             <p>$10.00</p>
             <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg">
@@ -91,8 +98,45 @@
 
 <footer> 
     <h1>
-    Your One Stop Phone Shop <script>document.write(store_name)</script>
+    Your One Stop Phone Shop -
+    <script>document.write(store_name)</script>
     </h1>
+   <script>
+    var line = 1;
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.GetMinutes();
+    var amp_pm = (hours < 12) ? 'AM' : 'PM';
+    var hours_12h = (hours + 11) % 12 + 1;
+
+document.write(`
+    <table border="1" style="margin-left: auto; margin-right: auto; text-align: center;">
+        <thead>
+            <tr>
+                <th colspan="2">${initials}'s One Stop For Used Phones</th>
+            </tr>
+        <tbody>
+            <tr>
+                <th colspan="2">.</th>
+            </tr>
+            <tr>
+                <td>${line++}.</td>
+            <td>
+                <br>"Copyright @ ${first_name} ${last_name}"
+            </td>
+        </tr>
+        <tr>
+            <td>${line++}.</td>
+            <td>${now.getMonth()}:${now.getDate()}:${now.getFullYear()}</td>
+        </tr>
+        <tr>
+            <td>${line++}.</td>
+            <td>${hours_12h}:${minutes} ${am_pm}</td>
+        </tr>
+        </tbody>
+    </table>
+    `);
+</script>
 </footer>
 
 </html>
