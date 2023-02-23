@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="products-style.css">
+    
+    <title>Smartphone Products</title>
+    
+        <script>
+            var num_items = 5
+            var store_name = "Monika Koko Allen";   
+        </script>
+    <h1>
+        <span id="s_name"></span>'s Used Smart Phone Store
+    </h1>
+        <script>
+            s_name.innerHTML = store_name;
+        </script>
+
+<script src="./products_data.js"></script>
+   
+    <p style="text-align: center; font-weight: bold;">
+        Hits:<span id="hits_span">0</span>
+        Spins:<span id="spins_span">0</span>
+    </p>        
+</head>
+      
+<body onload="hits_span.innerHTML = hits; spins_span.innerHTML = spins;">
+    <div><main>
+            <section class="item" onmouseover="this.className='item rotate'; spins_span.innerHTML = spins++;" onclick="this.className='item'; hits_span.innerHTML = ++hits;">
+            <h2><script>document.write(name1)</script></h2>
+            <p>$<script>document.write(price1)</script></p>
+            <img id="image1_id"><script>image1_id.src = image1;</script>
+         </section>
+         
+         <section class="item" onmouseover="this.className='item rotate'; spins_span.innerHTML = spins++;" onclick="this.className='item'; hits_span.innerHTML = ++hits;">
+            <h2><script>document.write(name2)</script></h2>
+            <p>$<script>document.write(price2)</script></p>
+            <img id="image2_id"><script>image2_id.src = image2;</script>
+        </section>
+        
+        <section class="item" onmouseover="this.className='item rotate'; spins_span.innerHTML = spins++;" onclick="this.className='item'; hits_span.innerHTML = ++hits;">
+            <h2><script>document.write(name3)</script></h2>
+            <p>$<script>document.write(price3)</script></p>
+            <img id="image3_id"><script>image3_id.src = image3;</script>
+        </section>
+        
+        <section class="item" onmouseover="this.className='item rotate'; spins_span.innerHTML = spins++;" onclick="this.className='item'; hits_span.innerHTML = ++hits;">
+            <h2><script>document.write(name4)</script></h2>
+            <p>$<script>document.write(price4)</script></p>
+            <img id="image4_id"><script>image4_id.src = image4;</script>
+        </section>
+        
+        <section class="item" onmouseover="this.className='item rotate'; spins_span.innerHTML = spins++;" onclick="this.className='item'; hits_span.innerHTML = ++hits;">
+            <h2><script>document.write(name5)</script></h2>
+            <p>$<script>document.write(price5)</script></p>
+            <img id="image5_id"><script>image5_id.src = image5;</script>
+        </section>
+    
+    </script>  
+
+<script>
+    for(i=1; i <=num_items; i++)
+    document.write(`
+        <section class="item" onmouseover="this.className='item rotate'; spins_span.innerHTML = spins++;" onclick="this.className='item'; hits_span.innerHTML = ++hits;">
+            <h2>${eval('name1'+ i)}</h2>
+            <p>${eval('price1' + i)}</p>
+            <img src = "${eval('image1' + i)}">
+        </section>
+`);
+</script>
+
+    </main></div>  
+</body>
+
+<footer> 
+    <h1>
+    Your One Stop Phone Shop <script>document.write(store_name)</script>
+    </h1>
+</footer>
+
+<script>
+    var hits = 0;
+    var spins = 1;
+</script>
+
+</html>
