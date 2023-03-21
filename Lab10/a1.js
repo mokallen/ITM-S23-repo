@@ -14,4 +14,3 @@ step10 = (step9 % 7);
 //2.7142857142857144 with remainder of 5, output should be 5 (Friday)
 
 console.log(step10);
-//update
