@@ -7,8 +7,34 @@
     <title>Document</title>
 </head>
 <body>
-    quantity desired: <input type="text" onkeyup="qty_textbox_message.innerHTML = this.value">
-    <span id='qty_textbox_message'>Enter a quantity</span>
+    <script>
+        // Notes
+        // All html form input elements will have a value
+        // running own server: node ../server.js
+        // can also use input type button
+    </script>
 
+    quantity desired: <input id="quantity_textbox" type="text" onkeyup="checkQuantityTextbox(this)">
+    <span id='quantity_textbox_message'>Enter a quantity</span>
+<br>
+    <input type="button" onclick="document.body.innerHTML = `Thank for you for ordering ${quantity_textbox.value} things!`" value="Purchase">
+<br>
+    <form name="quantity_form" action="display_purchase.html" method="GET"><input type="button" value="Submit"></form>
 </body>
+
 </html>
+<script>
+    function checkQuantityTextbox(the_quantity_textbox) {
+        document.getElementById(the_quantity_textbox.id + "_message").innerHTML = isNonNegInt(the_quantity_textbox.value).join(' '); // Calling the function isNonNegInt with the parameter for the textbox, joining with a space
+    }
+
+    function isNonNegInt(q) {
+        errors = []; // assume no errors at first
+        if(Number(q) != q) errors.push('Not a number!'); // Check if string is a number value
+        else {
+            if(q < 0) errors.push('Negative value!'); // Check if it is non-negative
+            if(parseInt(q) != q) errors.push('Not an integer!'); // Check that it is an integer
+        }
+        return errors;
+    }
+</script>

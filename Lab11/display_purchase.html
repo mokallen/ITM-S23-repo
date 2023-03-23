@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        let params = (new URL(document.location)).searchParams;
+        
+        if (params.has("quantity_textbox")) {
+            let quantity = params.get("quantity_textbox");
+            console.log(`Thank you for ordering ${quantity} things!`);
+        } else {
+            console.log("Quantity not specified in query string.");
+        }
+
+        function isNonNegInt(q) {
+        errors = []; // assume no errors at first
+        if(Number(q) != q) errors.push('Not a number!'); // Check if string is a number value
+        else {
+            if(q < 0) errors.push('Invalid quantity!'); // Check if it is non-negative
+            if(parseInt(q) != q) errors.push('Invalid quantity'); // Check that it is an integer
+        }
+        return errors;
+    }
+   </script>
+</head>
+<body>
+    
+</body>
+</html>
