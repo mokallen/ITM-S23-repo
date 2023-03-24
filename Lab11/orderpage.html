@@ -13,7 +13,8 @@
         // running own server: node ../server.js
         // can also use input type button
     </script>
-<form name="quantity_form" action="display_purchase.html" method="GET">
+    <!--adding onsubmit attribute that calls the event.preventDefault() method to prevent form from submitting to different page. The displayPurchase() function is called to display purchase msg on the same page. -->
+<form name="quantity_form" action="" method="GET" onsubmit="event.preventDefault(); displayPurchase();">
     quantity desired: <input id="quantity_textbox" name= "quantity_textbox" type="text" onkeyup="checkQuantityTextbox(this)">
     <span id='quantity_textbox_message'>Enter a quantity</span>
     <br>
@@ -46,4 +47,11 @@
         }
         return errors;
     }
+
+    //set value of quantity_textbox to the previous value from the string
+    if (params.has('quantity_textbox')) {
+        quantity_form["quantity_textbox"].value = params.get('quantity_textbox');
+        checkQuantityTextbox(quantity_form["quantity_textbox"]);
+}
+
 </script>
