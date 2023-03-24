@@ -13,19 +13,28 @@
         // running own server: node ../server.js
         // can also use input type button
     </script>
-
-    quantity desired: <input id="quantity_textbox" type="text" onkeyup="checkQuantityTextbox(this)">
+<form name="quantity_form" action="display_purchase.html" method="GET">
+    quantity desired: <input id="quantity_textbox" name= "quantity_textbox" type="text" onkeyup="checkQuantityTextbox(this)">
     <span id='quantity_textbox_message'>Enter a quantity</span>
-<br>
-    <input type="button" onclick="document.body.innerHTML = `Thank for you for ordering ${quantity_textbox.value} things!`" value="Purchase">
-<br>
-    <form name="quantity_form" action="display_purchase.html" method="GET"><input type="button" value="Submit"></form>
+    <br>
+    <input disabled id="purchase_button" type="submit" value="Purchase">
+    <br>
+</form>
 </body>
 
 </html>
 <script>
+    function displayPurchase(){
+        document.body.innerHTML = `Thank for you for ordering ${quantity_textbox.value} things!`
+    }
+//disabling and enabling purchase button by checking for errors
     function checkQuantityTextbox(the_quantity_textbox) {
-        document.getElementById(the_quantity_textbox.id + "_message").innerHTML = isNonNegInt(the_quantity_textbox.value).join(' '); // Calling the function isNonNegInt with the parameter for the textbox, joining with a space
+        var errors = isNonNegInt(the_quantity_textbox.value);
+        purchase_button.disabled = true;
+        if (errors.length == 0) {
+            purchase_button.disabled = false;
+        }
+        document.getElementById(the_quantity_textbox.id + "_message").innerHTML = errors.join(' '); // Calling the function isNonNegInt with the parameter for the textbox, joining with a space. Introducing a variable to check it later
     }
 
     function isNonNegInt(q) {
