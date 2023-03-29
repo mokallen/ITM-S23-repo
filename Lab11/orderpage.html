@@ -14,7 +14,7 @@
         // can also use input type button
     </script>
     <!--adding onsubmit attribute that calls the event.preventDefault() method to prevent form from submitting to different page. The displayPurchase() function is called to display purchase msg on the same page. -->
-<form name="quantity_form" action="" method="GET" onsubmit="event.preventDefault(); displayPurchase();">
+<form name="quantity_form" action="" method="POST" onsubmit="event.preventDefault(); displayPurchase();">
     quantity desired: <input id="quantity_textbox" name= "quantity_textbox" type="text" onkeyup="checkQuantityTextbox(this)">
     <span id='quantity_textbox_message'>Enter a quantity</span>
     <br>
@@ -27,6 +27,15 @@
 <script>
     function displayPurchase(){
         document.body.innerHTML = `Thank for you for ordering ${quantity_textbox.value} things!`
+    }
+    //got this idea from chatgpt, not too sure if this is the correct way to do it but
+    function redirect() {
+        var errors = isNonNengInt(quantity_textbox.value);
+        if (errors.length == 0) {
+            window.location.href = "display_purchase.html" + document.location.search;
+        } else {
+            document.getElemendById('quantity_textbox_message').innerHTML = errors.join('');
+        }
     }
 //disabling and enabling purchase button by checking for errors
     function checkQuantityTextbox(the_quantity_textbox) {
