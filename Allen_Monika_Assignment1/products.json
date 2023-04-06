@@ -1,0 +1,51 @@
+[
+  {  
+    "product":"Leo Shirt",  
+    "price": 25.00,  
+    "image": "leoshirt.jpg",
+    "quantity_available": 10
+  },
+  {  
+    "product":"Leo Tee",  
+    "price": 20.00,  
+    "image": "leotee.jpg",
+    "quantity_available": 9
+  },
+  {  
+    "product":"Leo Crewneck",  
+    "price": 30.00,  
+    "image": "leocrew.jpg",
+    "quantity_available": 8
+  },
+  {  
+    "product":"Leo Hoodie",  
+    "price": 35.00,  
+    "image": "leohood.jpg",
+    "quantity_available": 7
+  },
+  {  
+    "product":"Leo Tote Bag",  
+    "price": 10.00,  
+    "image": "leotote.jpg",
+    "quantity_available": 6
+  },
+  {  
+    "product":"Leo Cap",  
+    "price": 15.00,  
+    "image": "leocap.jpg",
+    "quantity_available": 5
+  },
+  {  
+    "product":"Leo x NewJeans Poster",  
+    "price": 5.00,  
+    "image": "leoxnwjns.jpg",
+    "quantity_available": 4
+  },
+  {  
+    "product":"Leo Keychain",  
+    "price": 7.00,  
+    "image": "leokey.jpg",
+    "quantity_available": 3
+  }
+    ]
+    
