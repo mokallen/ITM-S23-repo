@@ -6,54 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Display Products</title>
 
+    <!-- !CSS template from w3schools, 'Clothing Store Template'! -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<style>
-.w3-sidebar a {font-family: "Roboto", sans-serif}
-body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
-</style>
+    <style>
+    .w3-sidebar a {font-family: "Roboto", sans-serif}
+    body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
+    </style>
 
 </head>
 <body class="w3-content" style="max-width:1200px">
 
-    <!-- !PAGE CONTENT! -->
+    <!-- page content for store -->
     <div class="w3-main" style="margin-left:250px">
       
-        <!-- Top header -->
+        <!-- top header of store -->
         <header class="w3-container w3-xlarge">
             <p class="w3-left">The Leo Store</p>
             <p class="w3-right">
-                <i class="fa fa-shopping-cart w3-margin-right"></i>
-                <i class="fa fa-search"></i>
+                <i class="fa fa-shopping-cart w3-margin-right"></i> <!-- shopping cart not functioning, for decoration; provided by w3schools template -->
+                <i class="fa fa-search"></i> <!-- search icon not functioning, for decoration; provided by w3schools template -->
             </p>
       </header>
     
-        <!-- Image header -->
+        <!-- image header/store banner -->
         <div class="w3-display-container w3-container">
             <img src="/Allen_Monika_Assignment1/Images/leobanner.jpg" alt="Leonius" style="width:100%">
+            <!-- displays text 'New Arrivals!' -->
             <div class="w3-display-topleft w3-text-pink" style="padding:24px 48px">
                 <h1 class="w3-jumbo w3-hide-small">New Arrivals!!</h1>
-                <h1 class="w3-hide-large w3-hide-medium">New arrivals</h1>
             </div>
     
       <div class="w3-container w3-text-grey" id="merch">
-        <p>8 items</p>
+        <p>8 items</p> <!-- number of products in store -->
       </div>
 <form action="./invoice.html" method="GET">
-        <!-- Product grid -->
+        <!-- product grid -->
+        <!-- in this template the products are listed from top to bottom, left to right -->
         <div class="w3-col l3 s6">
           <div class="w3-container">
+            <!-- form button-->
             <label>Quantity</label>
-            <input type="text" value=0>
+            <input type="text" value=0 name="qty0">
             <img src="/Allen_Monika_Assignment1/Images/leoshirt.jpg" style="width:100%">
             <p>Leo Shirt<br><b>$25.00</b></p>
           </div>
           <div class="w3-container">
+            <!-- form button -->
             <label>Quantity</label>
-            <input type="text" value=0>
+            <input type="text" value=0 name="qty1">
             <img src="/Allen_Monika_Assignment1/Images/leotote.jpg" style="width:100%">
             <p>Leo Totebag<br><b>$10.00</b></p>
           </div>
@@ -62,15 +66,17 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
         <div class="w3-col l3 s6">
           <div class="w3-container">
             <div class="w3-display-container">
+                <!-- form button -->
                 <label>Quantity</label>
-                <input type="text" value=0>
+                <input type="text" value=0 name="qty2">
                 <img src="/Allen_Monika_Assignment1/Images/leotee.jpg" style="width:100%">
             </div>
             <p>Leo Tee<br><b>$20.00</b></p>
           </div>
           <div class="w3-container">
+            <!-- form button -->
             <label>Quantity</label>
-            <input type="text" value=0>
+            <input type="text" value=0 name="qty3">
             <img src="/Allen_Monika_Assignment1/Images/leocap.jpg" style="width:100%">
             <p>Leo Cap<br><b>$15.00</b></p>
           </div>
@@ -78,15 +84,17 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
     
         <div class="w3-col l3 s6">
           <div class="w3-container">
+            <!-- form button -->
             <label>Quantity</label>
-            <input type="text" value=0>
+            <input type="text" value=0 name="qty4">
             <img src="/Allen_Monika_Assignment1/Images/leocrew.jpg" style="width:100%">
             <p>Leo Crewneck<br><b>$30.00</b></p>
           </div>
           <div class="w3-container">
             <div class="w3-display-container">
+                <!-- form button -->
                 <label>Quantity</label>
-                <input type="text" value=0>
+                <input type="text" value=0 name="qty5">
                 <img src="/Allen_Monika_Assignment1/Images/leoxnwjns.jpg" style="width:100%">
             </div>
             <p>Leo x NewJeans Poster<br><b>$5.00</b></p>
@@ -95,26 +103,28 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
     
         <div class="w3-col l3 s6">
           <div class="w3-container">
+            <!-- form button -->
             <label>Quantity</label>
-            <input type="text" value=0>
+            <input type="text" value=0 name="qty6">
             <img src="/Allen_Monika_Assignment1/Images/leohood.jpg" style="width:100%">
             <p>Leo Hoodie<br><b>$35.00</b></p>
           </div>
           <div class="w3-container">
+            <!-- form button -->
             <label>Quantity</label>
-            <input type="text" value=0>
+            <input type="text" value=0 name="qty7">
             <img src="/Allen_Monika_Assignment1/Images/leokey.jpg" style="width:100%">
             <p>Leo Keychain<br><b>$7.00</b></p>
           </div>
         </div>
 </form>
       </div>
+      <!-- form submit button -->
       <input type="submit" value="Purchase">
-      <footer>
-      </footer>
-      <!-- End page content -->
-    </script>
+      <!-- end of page content -->
     
     </body>
+    <footer>
+    </footer>
     </html>
     
