@@ -1,5 +1,5 @@
 /* styling for invoice  */
-/* Changing background color and aligning and sizing the text  */
+/* changing background color and aligning and sizing the text  */
 body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
@@ -9,11 +9,11 @@ body {
     font-size: 14px;
   }
 
-  /* Changing header color invoice */
+  /* changing header color invoice */
 th {
     background-color:lightsteelblue;
   }
-/* Centering invoice and adding color */
+/* centering invoice and adding color */
 table {
     border-collapse: collapse;
     background-color:white;

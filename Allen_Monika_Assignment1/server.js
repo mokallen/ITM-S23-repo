@@ -17,22 +17,20 @@ app.all('*', function (request, response, next) { // any request for any path, e
 var products = require(__dirname + '/products.json');
    console.log(products); // to check that products are being loaded on the server
 
+   app.get("/products.js", function (request, response, next) {
+      response.type('.js');
+      var products_str = `var products = ${JSON.stringify(products)};`;
+      response.send(products_str);
+   }); // sends string of data when requested
+
 // track quantity sold
 products.forEach( (prod,i) => {prod.total_sold = 0});
 
 // process purchase request (validate quantities, check quantity available) monitor requests
-app.get("/product_data.js", function (request, response, next) {
-   response.type('.js');
-   var products_str = `var products = ${JSON.stringify(products)};`;
-   response.send(products_str);
-}); // sends string of data when requested
 
 // **IR1 Task: IR1 Track the total quantity of each item sold. This needs to be implemented on the server when you remove sold items from the quantity available. Display total quantity sold with the product information.
 app.post('/process_form', function (request, response) { //route that is supposed to recieve the request when user submits #'s of products
    var POST = request.body;
-   // *note to self: validate quantities, all validations must be done on the server
-   // *note to self: gonna need a loop for all the quanities in the body
-   // *note to self: at least 1 selection, use a flag variable (false or true boolean, start above the loop has selections false > is q > 0? has quantities becomes false to true)
    // assume no quantities
    var Valid_Purchase = false;
    // errorObject to store error messages
@@ -59,13 +57,13 @@ app.post('/process_form', function (request, response) { //route that is suppose
       for (let i in products) {
          qtys = POST[`quantity`+i];
          products[i].total_sold += Number(qtys); // add user input quantities
-         products[i].quantity_availabe = products[i].quantity_available - Number(qtys); // quantity available minus input quantities to calculate how many products are left for sale
+         products[i].quantity_available = products[i].quantity_available - Number(qtys); // quantity available minus input quantities to calculate how many products are left for sale
       }
       response.redirect("./invoice.html?" + qs.stringify(request.body)); // if valid, complete the purchase -> redirect to the inovice page, placed outside of the loop to ensure only one response is submitted
    }
    // if not valid, send errors and go back to order page
    // if all quantity boxes are empty and purchase is invalid, redirect to products_display page
-   else if ((Valid_Purchase == false) && (Object.keys(errors.Object).length == 0)) {
+   else if ((Valid_Purchase == false) && (Object.keys(errorsObject).length == 0)) {
       response.redirect("./products_display.html?" + qs.stringify(request.body) + `&noQuantities=Please enter a quantity`); // displays message with appended key: noQuantities and value: "Please enter a quantity"
    }
    // if there is an input error, redirect to products_display with appended key: inputError and value: "Please correct all errors"

@@ -1,7 +1,4 @@
-<script src="/Allen_Monika_Assignment1/products.json" type="text/javascript"></script>
-<!--sourcing the array of products used for the store-->
-<script>
-var products = require(__dirname + "/Allen_Monika_Assignment1/products.json"); // creating variable products using products.json
+    var products = require(__dirname + "/Allen_Monika_Assignment1/products.json"); // creating variable products using products.json
 
   let params = (new URL(document.location)).searchParams;
   // when the window loads, perform the following function:
@@ -57,59 +54,3 @@ var products = require(__dirname + "/Allen_Monika_Assignment1/products.json"); /
       }
       return (returnErrors ? errors : (errors.length == 0));
   };
-</script>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Leo Store</title>
-</head>
-
-<body style="max-width:1200px">
-    <form action="process_form" method="POST" id="inputForm">
-
-    <!-- page content for store -->
-    <div style="margin-left:250px">
-      
-        <!-- top header of store -->
-        <header>
-            <p>The Leo Store</p>
-      </header>
-    
-        <!-- image header/store banner -->
-            <img src="/Allen_Monika_Assignment1/images/leobanner.jpg" style="width:100%">
-        </div>
-          <main>
-
-            <script>
-            // loop products array with name, quantity, price, and image 
-              for (let i = 0; i < products.length; i++) {
-                document.write(`
-                <section class="item">
-                  <h2>${products[i].name}</h2>
-                  <p>$${products[i].price}</p>
-                  <img src="${products[i].image}">
-                  <h3>${products[i].quantity_available} avaliable</h3>
-                  <h3>${products[i].total_sold} sold</h3>
-                  <div style="width:80%; margin-left:10%;">
-                    <label id="quantity${i}_label"}" style="font-size: 13px;">Quantity Desired:</label>
-                    <span><input style="width:30px;" type="text" placeholder="0" name="quantity${i}" id="qInput${i}"  onchange="checkQuantityTextbox(this)"> 
-                  </section>
-                `);
-                }
-            </script>
-
-          </main></div>
-            <div class="center">
-                <br><input type="submit" class="button" value="Purchase" id="submit" name="purchase_submit">
-            </div>
-        </div>
-
-    </form>
-    </body>
-
-    </html>
-    
