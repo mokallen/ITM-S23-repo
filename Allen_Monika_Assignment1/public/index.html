@@ -5,10 +5,7 @@
 </script>
 
 <script>
-    let params = (new URL(document.location)).searchParams;
-
-
-    // referenced from example assignment 1 provided by professor port
+    let params = (new URL(document.location)).searchParams; // referenced from example assignment 1 provided by professor port
     // when the window loads, perform the following function:
     window.onload = function () {
         // if the url has 'inputError', there is a negative, non-integer, or non-number value
@@ -46,7 +43,7 @@
             document.getElementById(theTextbox.name + '_label').innerHTML = errors.join('<font color="red">, </font>');
         }
     }
-    // code referenced from lab 11
+    // code referenced from lab 11, also referenced parts from chatgpt for help with errors
     function isNonNegInt(arrayElement, returnErrors = false) {
         errors = []; // assume no errors at first
         if (Number(arrayElement) != arrayElement) errors.push('<font color="red">Not a number!</font>'); // check if string is a number value

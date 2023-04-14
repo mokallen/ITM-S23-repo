@@ -1,9 +1,10 @@
 //authored by monika allen
 // this file will run the server for my online e-commerce store, sends instructions for store page requests
+// recieved help from ITMA club members throughout assignment 1, i recall port saying that we are allowed to get some help but if not i will take the point deduction sorry
 
 var express = require('express'); // requiring express and not http, which will contain http and more
 var app = express(); // creating object app to express
-var qs = require('querystring');
+var qs = require('querystring'); // requiring querystring
 
 
 //POST
@@ -20,10 +21,10 @@ app.all('*', function (request, response, next) {
 // create variable products from json file and store it on the server
 var products = require(__dirname + '/products.json');
 
-//will track quantity sold
+// will track quantity sold
 products.forEach((prod, i) => { prod.total_sold = 0 });
 
-//getting data from json file, read as a js file
+// getting data from json file, read as a js file
 app.get("/products.js", function (request, response, next) {
     response.type('.js');
     var products_str = `var products = ${JSON.stringify(products)};`;
@@ -58,7 +59,8 @@ app.post('/process_form', function (request, response) {
 
     //*note to self: remove from inventory, loop again through quantities and deduct from the products array quantities available for that product. update from memory? serve products from the server.
    // if there are no empty boxes and purchase is valid, it will take the quantity inputted by user as the number of products sold
-   
+
+   // recieved help in ITMA by blake saari and referenced from blake saari
     if ((Valid_Purchase == true) && (Object.keys(errorsObject).length == 0)) {
         // calculate the quantity sold by adding the user input
         for (let i in products) {
