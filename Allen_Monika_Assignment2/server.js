@@ -2,7 +2,7 @@
 // this file will run the server for my online e-commerce store, sends instructions for store page requests
 
 // encryption and decryption
-// code Referenced from https://stackoverflow.com/questions/51280576/trying-to-add-data-in-unsupported-state-at-cipher-update
+// code referenced from https://stackoverflow.com/questions/51280576/trying-to-add-data-in-unsupported-state-at-cipher-update
 let secrateKey = "secrateKey";
 // requires crypto library
 const crypto = require('crypto');
@@ -71,7 +71,7 @@ app.get("/products.js", function (request, response, next) {
 //monitor requests & process purchase request (validate quantities, check quantity available)
 
 
-// **IR1 Task: IR1 Track the total quantity of each item sold. This needs to be implemented on the server when you remove sold items from the quantity available. Display total quantity sold with the product information - copied from official assignment 1 page
+// IR1: Track the total quantity of each item sold. This needs to be implemented on the server when you remove sold items from the quantity available. Display total quantity sold with the product information - copied from official assignment 1 page
 app.post('/process_form', function (request, response) {
     var POST = request.body;
     // assume there are no quantities
@@ -125,8 +125,8 @@ app.post('/process_form', function (request, response) {
 
 // referenced from assignment 2 code examples provided by professor port
 app.use(express.urlencoded({ extended: true }));
-// Checks for the existence of the file
-//Referenced from Lab 13 Exercise 2B
+// checks for the existence of the file
+// referenced from Lab 13 Exercise 2B
 if (fs.existsSync(filename)) {
     // if it exists, read the file user_data.json stored in filename
     var data = fs.readFileSync(filename, 'utf-8');
@@ -135,31 +135,31 @@ if (fs.existsSync(filename)) {
 }
 
 // POST request from login.html
-//Adopted from Assignment 2 code examples on ITM 352 website
+// adopted from assignment 2 code examples on ITM 352 website
 app.post("/process_login", function (req, res) {
     // process a simple register form
-    // Get the username inputted from the request body
+    // get the username inputted from the request body
     //Inspired by Lab 13 Ex 3 a
     var the_email = req.body.email.toLowerCase();
-    //IR 1  Encrypt users passwords 
+    //IR 1: Encrypt users passwords 
     var encryptedPassword = encrypt(req.body.password);
 
-    //Error message if username is taken
+    // error message if username is taken
     if (typeof user_data[the_email] != 'undefined') {
-        // Check if password matches username
+        // check if password matches username
         if (user_data[the_email].password == encryptedPassword) {
             // if there are no errors, store user info in temp_info and send to invoice.  
             temp_info['email'] = the_email;
             status[the_email] = true;
             temp_info['name'] = user_data[the_email].name;
 
-            // This will store the number of loggedin users to temp_data
-            // The number of users in the system will be appended to the URL and can be found using params.get('users')
-            //Counts how many users are logged in
+            // this will store the number of loggedin users to temp_data
+            // the number of users in the system will be appended to the URL and can be found using params.get('users')
+            // counts how many users are logged in
             temp_info['users'] = Object.keys(status).length
 
             let params = new URLSearchParams(temp_info);
-            // Send to invoice page if login successful
+            // send to invoice page if login successful
             res.redirect('/invoice.html?' + params.toString());
             // ends process
             return;
@@ -169,27 +169,27 @@ app.post("/process_login", function (req, res) {
             req.query.LoginError = 'Invalid password!';
         }
     } else { // if the username is undefined there's an error
-        // Error message for user that doesn't exist
+        // error message for user that doesn't exist
         req.query.LoginError = 'Invalid username!';
     }
     // if not back to login with errors.    
     params = new URLSearchParams(req.query);
-    //redirect to login if there are errors
+    // redirect to login if there are errors
     res.redirect("./login.html?" + params.toString());
 });
 
 // POST request form register for account
-//Inspired by Lab 13 Ex 3 a
-// Registration validation adpoted & modified from https://www.w3resource.com/javascript/form/javascript-sample-registration-form-validation.php
+// inspired by Lab 13 Ex 3 a
+// registration validation adpoted & modified from https://www.w3resource.com/javascript/form/javascript-sample-registration-form-validation.php
 app.post("/process_register", function (req, res) {
     // assume no errors at start
     var reg_errors = {};
-    // Import email from submitted page
+    // import email from submitted page
     var reg_email = req.body.email.toLowerCase();
 
 
-    // Email validation: makes sure correct email format is being inputted into user textbox
-    //Check if the fullname is valid (charcters in parathenthesis taken from stack overflow)
+    // email validation: makes sure correct email format is being inputted into user textbox
+    // check if the fullname is valid (charcters in parathenthesis taken from stack overflow)
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})*$/.test(req.body.email)) {
     } else {
         // error message for email that doesn't match the standard email format
@@ -199,72 +199,72 @@ app.post("/process_register", function (req, res) {
     if (user_data[reg_email] != undefined) {
         reg_errors['email'] = 'Email taken.'
     }
-    //Name Validation: Makes sure only letters with a length of 1-30 are entered corrrectly
-    //Name must be ALL in letters (charcters in parathenthesis taken from stack overflow)
+    // name validation: makes sure only letters with a length of 1-30 are entered corrrectly
+    // name must be ALL in letters (charcters in parathenthesis taken from stack overflow)
     if (/^[A-Za-z\s]+$/.test(req.body.fullname)) {
     }
     else {
-        //Error message pops up if it contains invalid characters
+        // error message pops up if it contains invalid characters
         reg_errors['fullname'] = 'Enter name with letter characters only';
     }
-    //If nothing is entered 
+    // if nothing is entered 
     if (req.body.fullname == "") {
-        //Error message will pop up to enter name
+        // error message will pop up to enter name
         reg_errors['fullname'] = 'Enter name';
     }
-    //Length of name must be greater than 2 and no bigger than 30 characters long 
+    // length of name must be greater than 2 and no bigger than 30 characters long 
     if (req.body.fullname.length > 30 && req.body.fullname.length < 2) {
         reg_errors['fullname'] = 'Name exceeds 30 characters';
     }
 
-    // Password must have more tham 10 chracters
-    //Charcters in parathenthesis is taken from https://stackoverflow.com/questions/12090077/javascript-regular-expression-password-validation-having-special-characters
-    //IR2 Require that passwords have at least one number and one special character (charcters in parathenthesis taken from stack overflow)
+    // password must have more tham 10 chracters
+    // charcters in parathenthesis is taken from https://stackoverflow.com/questions/12090077/javascript-regular-expression-password-validation-having-special-characters
+    // IR2: require that passwords have at least one number and one special character (charcters in parathenthesis taken from stack overflow)
     if (/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/.test(req.body.password)) {
     } else {
-        //Error message pops upp if password does not contain at least one number or special character
+        // error message pops upp if password does not contain at least one number or special character
         reg_errors['password'] = "Password must have at least one number and one special character";
     }
     if (req.body.password.length < 10) {
-        // Error message pops up if password doesn't exceed 10 characters
+        // error message pops up if password doesn't exceed 10 characters
         reg_errors['password'] = "Password must be more than 10 characters.";
     }
 
-    // Password Confirmation to make sure two passwords entered match
+    // password Confirmation to make sure two passwords entered match
     if (/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/.test(req.body.password)) {
     } else {
-        //Error message pops upp if password does not contain at least one number or special character
+        // error message pops upp if password does not contain at least one number or special character
         reg_errors['password'] = "Password must have at least one number and one special character";
     }
     if (req.body.password !== req.body.confirmpassword) {
-        //Error message will pop up if two passwords entered are not the same
+        // error message will pop up if two passwords entered are not the same
         reg_errors['confirmpassword'] = "Passwords are not the same."
     }
 
-    // Save registration data to json file and send to invoice page if registration successful. 
-    // Assignment 2 Example Code : Reading and writing user info to a JSON file
+    // save registration data to json file and send to invoice page if registration successful. 
+    // assignment 2 example code : reading and writing user info to a JSON file
     if (Object.keys(reg_errors).length == 0) {
         var email = req.body['email'].toLowerCase();
         user_data[email] = {};
         // information entered is added to user_data
-        //Inspired by Lab 13 Ex 4
+        // inspired by Lab 13 Ex 4
         user_data[email]['name'] = req.body['fullname'];
         user_data[email]['password'] = encrypt(req.body['password']);
-        // Set the user's status to loggedin
+        // set the user's status to loggedin
         user_data[email]['status'] = "loggedin"
 
-        // Send the user's email to the array status
+        // send the user's email to the array status
       status[email]=true;
-        // Finds how many users are active
+        // finds how many users are active
         temp_info['users'] = Object.keys(status).length;
         // username and email from temp_info  variable added into file as username and email
         temp_info['email'] = email;
         temp_info['name'] = user_data[email]["name"];
         let params = new URLSearchParams(temp_info);
-        // If registered send to invoice with product quantity data
+        // ff registered send to invoice with product quantity data
         res.redirect('./invoice.html?' + params.toString());
     }
-    // If errors exist, redirect to registration page with errors 
+    // if errors exist, redirect to registration page with errors 
     else {
         req.body['reg_errors'] = JSON.stringify(reg_errors);
         let params = new URLSearchParams(req.body);
@@ -272,125 +272,125 @@ app.post("/process_register", function (req, res) {
         res.redirect('register.html?' + params.toString());
     }
 });
-//IF LOGIN IS CORRECT, USER CAN EDIT REGISTRATION DATA
+// IF LOGIN IS CORRECT, USER CAN EDIT REGISTRATION DATA
 // POST request from login.html
-//Adopted from Assignment 2 code examples on ITM 352 website
+// adopted from assignment 2 code examples on ITM 352 website
 app.post("/redirect_edit", function (req, res) {
     // process a simple register form
-    // Get the username inputted from the request body
-    //Inspired by Lab 13 Ex 3 a
+    // get the username inputted from the request body
+    // inspired by Lab 13 Ex 3 a
     var encryptedPassword = encrypt(req.body.password);
     var the_email = req.body.email.toLowerCase();
-    //If email is found in user_data...
+    // if email is found in user_data...
     if (typeof user_data[the_email] != 'undefined') {
-        // If password matches username
+        // if password matches username
         if (user_data[the_email].password == encryptedPassword) {
             // if there are no errors, store user info in temp_info and send to invoice.  
             temp_info['email'] = the_email;
             let params = new URLSearchParams(temp_info);
-            // Send to invoice page if login successful
+            // send to invoice page if login successful
             res.redirect('/edit.html?' + params.toString());
             // ends process
             return;
-            // i the password does not match the password entered then......
+            // if the password does not match the password entered then......
         } else {
             req.query.email = the_email;
-            // Error message for wrong password
+            // error message for wrong password
             req.query.LoginError = 'Invalid password!';
         }
     } else { // if the username is undefined there's an error
-        // Error message for user that doesn't exist
+        // error message for user that doesn't exist
         req.query.LoginError = 'Invalid username!';
     }
     // if not back to login with errors.    
     params = new URLSearchParams(req.query);
-    //redirect to login if there are errors
+    // redirect to login if there are errors
     res.redirect("./login.html?" + params.toString());
 });
-//EDIT USER REGISTRATION 
-// Registration validation adpoted & modified from https://www.w3resource.com/javascript/form/javascript-sample-registration-form-validation.php
+// EDIT USER REGISTRATION 
+// registration validation adpoted & modified from https://www.w3resource.com/javascript/form/javascript-sample-registration-form-validation.php
 app.post("/process_edit", function (req, res) {
     // assume no errors at start
     var reg_errors = {};
 
-    // Email validation: makes sure correct email format is being inputted into user textbox
-    //Check if the fullname is valid (charcters in parathenthesis taken from stack overflow)
+    // email validation: makes sure correct email format is being inputted into user textbox
+    // check if the fullname is valid (charcters in parathenthesis taken from stack overflow)
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})*$/.test(req.body.email)) {
     } else {
         // error message for email that doesn't match the standard email format
         reg_errors['email'] = "Invalid email.";
     }
-    //Name Validation: Makes sure only letters with a length of 1-30 are entered corrrectly
-    //Name must be ALL in letters (charcters in parathenthesis taken from stack overflow)
+    // name validation: makes sure only letters with a length of 1-30 are entered corrrectly
+    // name must be ALL in letters (charcters in parathenthesis taken from stack overflow)
     if (/^[A-Za-z\s]+$/.test(req.body.fullname)) {
     }
     else {
-        //Error message pops up if it contains invalid characters
+        // error message pops up if it contains invalid characters
         reg_errors['fullname'] = 'Enter name with letter characters only';
     }
-    //If nothing is entered 
+    // if nothing is entered 
     if (req.body.fullname == "") {
-        //Error message will pop up to enter name
+        // error message will pop up to enter name
         reg_errors['fullname'] = 'Enter name';
     }
-    //Length of name must be greater than 2 and no bigger than 30 characters long 
+    // length of name must be greater than 2 and no bigger than 30 characters long 
     if (req.body.fullname.length > 30 && req.body.fullname.length < 2) {
         reg_errors['fullname'] = 'Name exceeds 30 characters';
     }
 
-    // Password must have more tham 10 chracters
-    //Charcters in parathenthesis is taken from https://stackoverflow.com/questions/12090077/javascript-regular-expression-password-validation-having-special-characters
-    //IR2 Require that passwords have at least one number and one special character (charcters in parathenthesis taken from stack overflow)
+    // password must have more tham 10 chracters
+    // charcters in parathenthesis is taken from https://stackoverflow.com/questions/12090077/javascript-regular-expression-password-validation-having-special-characters
+    //IR2: require that passwords have at least one number and one special character (charcters in parathenthesis taken from stack overflow)
     if (/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/.test(req.body.password)) {
     } else {
-        //Error message pops upp if password does not contain at least one number or special character
+        // error message pops up if password does not contain at least one number or special character
         reg_errors['password'] = "Password must have at least one number and one special character";
     }
     if (req.body.password.length < 10) {
-        // Error message pops up if password doesn't exceed 10 characters
+        // error message pops up if password doesn't exceed 10 characters
         reg_errors['password'] = "Password must be more than 10 characters.";
     }
 
-    // Password Confirmation to make sure two passwords entered match
+    // password Confirmation to make sure two passwords entered match
     if (/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/.test(req.body.password)) {
     } else {
-        //Error message pops upp if password does not contain at least one number or special character
+        // error message pops upp if password does not contain at least one number or special character
         reg_errors['password'] = "Password must have at least one number and one special character";
     }
     if (req.body.password !== req.body.confirmpassword) {
-        //Error message will pop up if two passwords entered are not the same
+        // error message will pop up if two passwords entered are not the same
         reg_errors['confirmpassword'] = "Passwords are not the same."
     }
 
-    // Save registration data to json file and send to invoice page if registration successful. 
-    // Assignment 2 Example Code : Reading and writing user info to a JSON file
+    // save registration data to json file and send to invoice page if registration successful. 
+    // referenced from assignment 2 example code : reading and writing user info to a JSON file
     if (Object.keys(reg_errors).length == 0) {
         console.log(user_data);
-        //Delete email once logged out
+        // delete email once logged out
         delete user_data[temp_info['email']];
         var email = req.body['email'].toLowerCase();
         user_data[email] = {};
         // information entered is added to user_data
-        //Inspired by Lab 13 Ex 4
+        // inspired by Lab 13 Ex 4
         user_data[email]['name'] = req.body['fullname'];
         user_data[email]['password'] = encrypt(req.body['password']);
 
         user_data[email].status = 'loggedin';
         
-        // Send the user's email to the array status
+        // send the user's email to the array status
       status[email]=true;
-      // Finds how many users are active
+      // finds how many users are active
       temp_info['users'] = Object.keys(status).length;
 
         // username and email from temp_info  variable added into file as username and email
         temp_info['email'] = email;
         temp_info['name'] = user_data[email]["name"];
         let params = new URLSearchParams(temp_info);
-        // If registered send to invoice with product quantity data
+        // if registered send to invoice with product quantity data
         res.redirect('./invoice.html?' + params.toString());
         console.log(user_data);
     }
-    // If errors exist, redirect to registration page with errors 
+    // if errors exist, redirect to registration page with errors 
     else {
         req.body['reg_errors'] = JSON.stringify(reg_errors);
         let params = new URLSearchParams(req.body);
@@ -398,17 +398,17 @@ app.post("/process_edit", function (req, res) {
         res.redirect('edit.html?' + params.toString());
     }
 });
-//Trashing login in email
+// trashing login in email
 app.post('/process_logout', function (request, response) {
-    // Get the user's email from the hidden textbox
+    // get the user's email from the hidden textbox
     var email = request.body.email.toLowerCase();
-//Deletes users information stored in temp_info
+// deletes users information stored in temp_info
     delete temp_info['email'];
     delete temp_info['name'];
     delete temp_info['users'];
-    //Delete email in the object
+    // delete email in the object
     delete status.email
-    // Log Out Status
+    // log Out Status
     user_data[email].status = "loggedout";
     // redirect the user to index if they choose to log out
     response.redirect('/index.html?');
@@ -420,21 +420,21 @@ app.use(express.static(__dirname + '/public'));
 // starts server
 app.listen(8080, () => console.log(`listening on port 8080`));
 
-//Everytime this is ran it clears out my errors
+// everytime this is ran it clears out my errors
 function isNonNegInt(arrayElement, returnErrors = false) {
 
-    // Prioritizing the errorsObject to display errors rather than this array
+    // prioritizing the errorsObject to display errors rather than this array
     errors = [];
 
-    // Checks if arrayElement is a non-neg integer. If returnErrors is true, the array of errors is returned.
-    // Otherwise returns true if arrayElement is non-neg int.
-    //If input is nothing than assigns it to zero
-    //Referenced from Store 1 WOD & modified 
+    // checks if arrayElement is a non-neg integer. If returnErrors is true, the array of errors is returned.
+    // otherwise returns true if arrayElement is non-neg int.
+    // if input is nothing than assigns it to zero
+    // referenced from Store 1 WOD & modified 
     if (arrayElement == '') arrayElement = 0;
-    if (Number(arrayElement) != arrayElement) errors.push('Not a number!'); // Check if string is a number value
+    if (Number(arrayElement) != arrayElement) errors.push('Not a number!'); // check if string is a number value
     else {
-        if (arrayElement < 0) errors.push('Negative value!'); // Check if it is non-negative
-        if ((parseInt(arrayElement) != arrayElement) && (arrayElement != 0)) errors.push('Not an integer!'); // Check that it is an integer
+        if (arrayElement < 0) errors.push('Negative value!'); // check if it is non-negative
+        if ((parseInt(arrayElement) != arrayElement) && (arrayElement != 0)) errors.push('Not an integer!'); // check that it is an integer
     }
 
     return returnErrors ? errors : (errors.length == 0);
