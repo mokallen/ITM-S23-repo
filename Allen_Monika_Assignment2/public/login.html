@@ -1,0 +1,50 @@
+<!-- authored by monika allen -->
+<!-- login page for ecommerce site -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <title>Login</title>
+    <script>            
+    // Gets form submission data inside params.
+        let params = (new URL(document.location)).searchParams; 
+        window.onload = function () {
+            if (params.has('LoginError')) {
+                // shows error with sign in
+                alert(params.get('LoginError')); 
+                // Sticky textboxes for invalid data.
+            } if (params.has('email')) {
+                email.value = params.get('email')
+            }
+        }
+        </script>
+</head>
+<body>
+    <a href="index.html">
+        <div id="Merchandise">
+            <h1>The Leo Store</h1>
+        </div>
+    </a>
+
+    <div class="box">
+        <h2>Login</h2>
+        New to The Leo Store? <div class="create"><a href="register.html"><u>Create an account.</u></a></div>
+
+        
+        <form action="/process_login" method="POST" name="login_form">
+            <p><b>Email</b></p>
+            <p><input type="text" name="email" id="email" size="40" onchange='this.value=this.value.toLowerCase();' required></p>
+            <p><b>Password</b></p>
+            <p><input type="password" name="password" size="40" required></p>
+            <input type="submit" value="Login" id="login">
+
+            <input type="submit" value="Edit User Registration" id="Edit User Registration" onclick="login_form.action='/redirect_edit'">
+        </form>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!-- authored by monika allen -->
+<!--registration page for ecommerce site-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="register.css">
+    <script>
+        // If there are any errors in the sign up, the information will stay inside the textboxes so the customer can change it.
+        let params = (new URL(document.location)).searchParams;
+          //check if username is valid and redirect to invoice if ok
+        window.onload = function () {
+          if (params.has('reg_errors')) {
+              // parse the errors. errors will show in red under each section
+            var errors = JSON.parse(params.get('reg_errors')); 
+            // Sticky textboxes
+            for (i = 0; i < register.elements.length; i++) {
+              register[i].value = params.get(register[i].name);
+              if (typeof errors[register[i].name] != 'undefined') {
+                document.getElementById(register[i].name + '_error').innerHTML = errors[register[i].name];
+              }
+            }
+            // Error message for the whole page
+            alert('Fix the following errors to proceed!'); 
+          }
+        }
+        </script>
+</head>
+<body>
+  <a href="index.html">
+        <div id="Merchandise">
+            <h1>The Leo Store </h1>
+        </div>
+    </a>
+
+    <div class="box">
+        <h2>Create an Account</h2>
+
+        <form action="/process_register" method="POST" name="register">
+            <label for="email"><b>Email Address</b></label>
+            <div id='email_error' style="color:red;"></div>
+            <p><input type="text" name="email" id="email" size="40"></p>
+
+            <label for="fullname"><b>Full Name</b></label>
+            <div id='fullname_error' style="color:red;"></div>
+            <p><input type="text" name="fullname" id="fullname" size="40"></p>
+            <label for="password"><b>Password</b></label>
+            <!--
+              IR3: suggestion of a strong password
+              -->
+           <p>a “strong” password consists of 10 random characters including numbers and special characters</p>
+            <div id='password_error' style="color:red;"></div>
+            <p><input type="password" name="password" id="password" size="40"></p>
+            <label for="confirmpassword"><b>Confirm Password</b></label>
+            <div id='confirmpassword_error' style="color:red;"></div>
+            <p><input type="password" name="confirmpassword" id="confirmpassword" size="40"></p>
+            <input type="submit" value="Register" id="registerbutton">
+        </form>
+    </div>
+</body>
+</html>
