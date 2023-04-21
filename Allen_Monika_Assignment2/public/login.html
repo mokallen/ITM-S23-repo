@@ -1,5 +1,5 @@
 <!-- authored by monika allen -->
-<!-- login page for ecommerce site -->
+<!-- login page for the leo store site -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="login.css">
     <title>Login</title>
     <script>            
-    // Gets form submission data inside params.
+    // gets form submission data inside params
         let params = (new URL(document.location)).searchParams; 
         window.onload = function () {
             if (params.has('LoginError')) {
                 // shows error with sign in
                 alert(params.get('LoginError')); 
-                // Sticky textboxes for invalid data.
+                // sticky textboxes for invalid data
             } if (params.has('email')) {
                 email.value = params.get('email')
             }

@@ -111,7 +111,7 @@ app.post('/process_form', function (request, response) {
     // if not valid, send errors and go back to order page
    // if all quantity boxes are empty and purchase is invalid, redirect to products_display page
     else if ((Valid_Purchase == false) && (Object.keys(errorsObject).length == 0)) {
-        response.redirect("./index.html?" + qs.stringify(request.body) + `&noQuantities=Please enter a quantity`); // // displays message with appended key: noQuantities and value: "Please enter a quantity"
+        response.redirect("./index.html?" + qs.stringify(request.body) + `&noQuantities=Please enter a quantity`); // displays message with appended key: noQuantities and value: "Please enter a quantity"
     }
     /// if there is an input error, redirect to products_display with appended key: inputError and value: "Please correct all errors"
    // append the errorsObject as a string
@@ -139,7 +139,7 @@ if (fs.existsSync(filename)) {
 app.post("/process_login", function (req, res) {
     // process a simple register form
     // get the username inputted from the request body
-    //Inspired by Lab 13 Ex 3 a
+    // inspired by Lab 13 Ex 3
     var the_email = req.body.email.toLowerCase();
     //IR 1: Encrypt users passwords 
     var encryptedPassword = encrypt(req.body.password);
@@ -179,7 +179,7 @@ app.post("/process_login", function (req, res) {
 });
 
 // POST request form register for account
-// inspired by Lab 13 Ex 3 a
+// inspired by Lab 13
 // registration validation adpoted & modified from https://www.w3resource.com/javascript/form/javascript-sample-registration-form-validation.php
 app.post("/process_register", function (req, res) {
     // assume no errors at start
@@ -230,7 +230,7 @@ app.post("/process_register", function (req, res) {
         reg_errors['password'] = "Password must be more than 10 characters.";
     }
 
-    // password Confirmation to make sure two passwords entered match
+    // password confirmation to make sure two passwords entered match
     if (/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/.test(req.body.password)) {
     } else {
         // error message pops upp if password does not contain at least one number or special character
@@ -261,7 +261,7 @@ app.post("/process_register", function (req, res) {
         temp_info['email'] = email;
         temp_info['name'] = user_data[email]["name"];
         let params = new URLSearchParams(temp_info);
-        // ff registered send to invoice with product quantity data
+        // if registered send to invoice with product quantity data
         res.redirect('./invoice.html?' + params.toString());
     }
     // if errors exist, redirect to registration page with errors 
@@ -274,11 +274,11 @@ app.post("/process_register", function (req, res) {
 });
 // IF LOGIN IS CORRECT, USER CAN EDIT REGISTRATION DATA
 // POST request from login.html
-// adopted from assignment 2 code examples on ITM 352 website
+// referenced from assignment 2 code examples on ITM 352 website
 app.post("/redirect_edit", function (req, res) {
     // process a simple register form
     // get the username inputted from the request body
-    // inspired by Lab 13 Ex 3 a
+    // inspired by Lab 13
     var encryptedPassword = encrypt(req.body.password);
     var the_email = req.body.email.toLowerCase();
     // if email is found in user_data...
@@ -308,7 +308,7 @@ app.post("/redirect_edit", function (req, res) {
     res.redirect("./login.html?" + params.toString());
 });
 // EDIT USER REGISTRATION 
-// registration validation adpoted & modified from https://www.w3resource.com/javascript/form/javascript-sample-registration-form-validation.php
+// registration validation referenced & modified from https://www.w3resource.com/javascript/form/javascript-sample-registration-form-validation.php
 app.post("/process_edit", function (req, res) {
     // assume no errors at start
     var reg_errors = {};
@@ -340,7 +340,7 @@ app.post("/process_edit", function (req, res) {
 
     // password must have more tham 10 chracters
     // charcters in parathenthesis is taken from https://stackoverflow.com/questions/12090077/javascript-regular-expression-password-validation-having-special-characters
-    //IR2: require that passwords have at least one number and one special character (charcters in parathenthesis taken from stack overflow)
+    // IR2: require that passwords have at least one number and one special character (charcters in parathenthesis taken from stack overflow)
     if (/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/.test(req.body.password)) {
     } else {
         // error message pops up if password does not contain at least one number or special character
@@ -351,7 +351,7 @@ app.post("/process_edit", function (req, res) {
         reg_errors['password'] = "Password must be more than 10 characters.";
     }
 
-    // password Confirmation to make sure two passwords entered match
+    // password confirmation to make sure two passwords entered match
     if (/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/.test(req.body.password)) {
     } else {
         // error message pops upp if password does not contain at least one number or special character
@@ -411,8 +411,13 @@ app.post('/process_logout', function (request, response) {
     // log Out Status
     user_data[email].status = "loggedout";
     // redirect the user to index if they choose to log out
-    response.redirect('/index.html?');
-
+    response.redirect('./index.html?');
+    console.log("Email:", email);
+    console.log("User data:", user_data[email]);
+    
+    if (user_data[email]) {
+      user_data[email].status = "loggedout";
+    }
 })
 
 // route all other GET requests to files in public 

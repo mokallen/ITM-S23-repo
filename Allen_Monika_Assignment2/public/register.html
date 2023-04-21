@@ -1,5 +1,5 @@
 <!-- authored by monika allen -->
-<!--registration page for ecommerce site-->
+<!--registration page for the leo store site-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,21 +10,21 @@
     <title>Register</title>
     <link rel="stylesheet" href="register.css">
     <script>
-        // If there are any errors in the sign up, the information will stay inside the textboxes so the customer can change it.
+        // if there are any errors in the sign up, the information will stay inside the textboxes so the customer can change it.
         let params = (new URL(document.location)).searchParams;
-          //check if username is valid and redirect to invoice if ok
+          // check if username is valid and redirect to invoice if ok
         window.onload = function () {
           if (params.has('reg_errors')) {
               // parse the errors. errors will show in red under each section
             var errors = JSON.parse(params.get('reg_errors')); 
-            // Sticky textboxes
+            // sticky textboxes
             for (i = 0; i < register.elements.length; i++) {
               register[i].value = params.get(register[i].name);
               if (typeof errors[register[i].name] != 'undefined') {
                 document.getElementById(register[i].name + '_error').innerHTML = errors[register[i].name];
               }
             }
-            // Error message for the whole page
+            // error message for the whole page
             alert('Fix the following errors to proceed!'); 
           }
         }
@@ -49,9 +49,7 @@
             <div id='fullname_error' style="color:red;"></div>
             <p><input type="text" name="fullname" id="fullname" size="40"></p>
             <label for="password"><b>Password</b></label>
-            <!--
-              IR3: suggestion of a strong password
-              -->
+            <!-- IR3: suggestion of a strong password -->
            <p>a “strong” password consists of 10 random characters including numbers and special characters</p>
             <div id='password_error' style="color:red;"></div>
             <p><input type="password" name="password" id="password" size="40"></p>

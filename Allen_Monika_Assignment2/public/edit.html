@@ -1,3 +1,5 @@
+<!-- authored by monika allen
+extra credit: editor -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,21 +9,21 @@
     <title>Edit</title>
     <link rel="stylesheet" href="register.css">
     <script>
-        // If there are any errors in the sign up, the information will stay inside the textboxes so the customer can change it.
+        // if there are any errors in the sign up, the information will stay inside the textboxes so the customer can change it.
         let params = (new URL(document.location)).searchParams;
-          //check if username is valid and redirect to invoice if ok
+          // check if username is valid and redirect to invoice if ok
         window.onload = function () {
           if (params.has('reg_errors')) {
               // parse the errors. errors will show in red under each section
             var errors = JSON.parse(params.get('reg_errors')); 
-            // Sticky textboxes.
+            // sticky textboxes.
             for (i = 0; i < edit.elements.length; i++) {
                 edit[i].value = params.get(edit[i].name);
               if (typeof errors[edit[i].name] != 'undefined') {
                 document.getElementById(edit[i].name + '_error').innerHTML = errors[edit[i].name];
               }
             }
-            // Error message for the whole page
+            // error message for the whole page
             alert('Fix the following errors to proceed!'); 
           }
         }
@@ -29,7 +31,7 @@
 </head>
 <body>
   <a href="index.html">
-        <div id="Plants">
+        <div id="Merchandise">
             <h1>The Leo Store</h1>
         </div>
     </a>

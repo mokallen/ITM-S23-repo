@@ -3,6 +3,9 @@
 <!-- sourcing the array of products used for invoice-->
 <script src="./products.js" type="text/javascript"></script>
 <script>
+  // message will appear when page laods to alert user that they have successfully logged in
+  alert("Successful Login!")
+
   // product quantities are in the querystring
   // get request for products in array
   let params = (new URL(document.location)).searchParams;
@@ -29,6 +32,9 @@
   <title>Leo Invoice</title>
   <!-- invoice banner for decoration -->
   <img src="/images/leoinvoice.png" style="border: none; width: 100%;">
+  <!-- displaying IR5 by grabbing div ids -->
+<h1 id="IR5"></h1>
+<h1 id="currentUsers"></h1>
 </head>
 
 <body>
@@ -50,7 +56,7 @@
     sub_total = 0;
     for (i = 0; i < products.length; i++) {
       if (quantities[i] > 0) {
-        //product row
+        // product row
         extended_price = quantities[i] * products[i].price;
         sub_total += extended_price;
       }
@@ -167,14 +173,34 @@
       </stong>
 </body>
 </table> <!-- end of invoice table -->
-<!-- display message thanking customers -->
-<h2>Thank you for Shopping with the Leo Store!</h2>
-<input type="button" class="button" value="Return to Shop" onclick="window.location.href = 'index.html';"> <!-- goes back to the store page -->
-<div class="shipping">
-  <h3>OUR SHIPPING RATES:</h3>
-  <p>Under US $49.99: $10</p>
-  <p>Between US $50-$99.99: $5</p>
-  <p>US $100 or more: Free Shipping</p>
-</div></b>
 
-</html>
+<script>
+  // IR5
+  // get url
+  window.onload = function () {
+    // creating ID 
+    document.getElementById('IR5').innerHTML = `Thank you, ${params.get('name')} for shopping with the Leo Store!`;
+    document.getElementById('currentUsers').innerHTML = `There are currently ${params.get('users')} on our site`;
+
+    // this is to get the values from the url and put it in the hidden input boxes
+    invoiceForm['users'].value = params.get('users');
+    invoiceForm['email'].value = params.get('email');
+    invoiceForm['fullname'].value = params.get('name');
+  }
+
+</script>
+<!-- creating invoice form -->
+<form method="POST" name="invoiceForm">
+  <input type="hidden" name="users" id="users">
+  <input type="hidden" name="fullname" id="fullname">
+  <input type="hidden" name="email" id="email">
+ <!-- logout button brings user to back to shop and removes their email from active users -->
+<input type="submit" class="button" value="Logout" onclick="invoiceForm.action='/process_logout'">
+  <div class="shipping">
+    <h3>SHIPPING RATES:</h3>
+    <p>Under US $49.99: $10</p>
+    <p>Between US $50-$99.99: $5</p>
+    <p>US $100 or more: Free shipping</p>
+  </div></b>
+
+  </html>
