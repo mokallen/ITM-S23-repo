@@ -27,13 +27,13 @@ a:active {
     color: black;
 }
 
-/* Create an account hover */
+/* create an account hover */
 .create a:hover {
     font-weight: bold;
     color: black;
 }
 
-/* Body styling */
+/* body styling */
 body {
     text-align: center;
     font-family: "Segoe UI",Arial,sans-serif;
@@ -43,7 +43,7 @@ body {
     background-size: 130%;
 }
 
-/* Sign Up button */
+/* sign up button */
 #registerbutton {
     margin-left: auto;
     margin-right: auto;
