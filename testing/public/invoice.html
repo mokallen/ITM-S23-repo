@@ -5,7 +5,6 @@
 <script>
   // message will appear when page laods to alert user that they have successfully logged in
   alert("Successful Login!")
-
   // product quantities are in the querystring
   // get request for products in array
   let params = (new URL(document.location)).searchParams;
@@ -32,15 +31,16 @@
   <title>Leo Invoice</title>
   <!-- invoice banner for decoration -->
   <img src="/images/leoinvoice.png" style="border: none; width: 100%;">
-  <!-- displaying IR5 by grabbing div ids -->
-<h1 id="IR5"></h1>
-<h1 id="currentUsers"></h1>
+  <!-- grabbing div ids to display IR5 -->
+  <h2 id="IR5"></h2> <!-- Thank you user for shopping with the Leo Store -->
+  <p id="currentUsers"></p> <!-- current number of users on server -->
+
 </head>
 
 <body>
   <script>
 
-    //invoice table template from store 1 WOD
+    // invoice table template from Store 1 WOD
     document.write(`
    <table border="2">
    <tbody>
@@ -62,11 +62,11 @@
       }
     }
 
-    //referenced from invoice 3 WOD
+    // referenced from invoice 3 WOD
     function isNonNegInt(quantity) {
 
-      errors = []; // assume there are no errors at first
-      if (quantity == "") quantity == 0; //if no input is inputted it will be assigned as 0
+      errors = []; // assume no errors at first
+      if (quantity == "") quantity == 0; // if no input is inputted it will be assigned as 0
       if (Number(quantity) != quantity) {
         errors.push('Not a number!'); // check if string is a number value
 
@@ -85,8 +85,7 @@
       return errors.length == 0;
     }
     function generate_item_rows() {
-      //referenced from store 1 WOD
-      //IR5: Photos Display in Invoice (for extra points because i need it haha)
+      // referenced from store 1 WOD
 
       for (i in products) {
         let qty = params.get('quantity' + i);
@@ -130,7 +129,7 @@
     //compute total 
     var total = tax + sub_total + shipping;
 
-    //displays subtotal, tax rate, shipping, and total price at the bottom of the invoice
+   // displays subtotal, tax rate, shipping, and total price at the bottom of the invoice
   </script>
 
   <tr>
@@ -178,9 +177,9 @@
   // IR5
   // get url
   window.onload = function () {
-    // creating ID 
-    document.getElementById('IR5').innerHTML = `Thank you, ${params.get('name')} for shopping with the Leo Store!`;
-    document.getElementById('currentUsers').innerHTML = `There are currently ${params.get('users')} on our site`;
+    // creating ID
+    document.getElementById('IR5').innerHTML = `Thank you ${params.get('name')} for shopping with The Leo Store!`;
+    document.getElementById('currentUsers').innerHTML = `There are currently ${params.get('users')} user(s) on our site`;
 
     // this is to get the values from the url and put it in the hidden input boxes
     invoiceForm['users'].value = params.get('users');
@@ -194,13 +193,14 @@
   <input type="hidden" name="users" id="users">
   <input type="hidden" name="fullname" id="fullname">
   <input type="hidden" name="email" id="email">
- <!-- logout button brings user to back to shop and removes their email from active users -->
-<input type="submit" class="button" value="Logout" onclick="invoiceForm.action='/process_logout'">
+ 
+  <!-- logout button brings user to back to shop and removes their email from active users -->
+  <input type="submit" class="button" value="Logout" onclick="invoiceForm.action='/process_logout'">
   <div class="shipping">
-    <h3>SHIPPING RATES:</h3>
+    <h3>Shipping Rates:</h3>
     <p>Under US $49.99: $10</p>
     <p>Between US $50-$99.99: $5</p>
-    <p>US $100 or more: Free shipping</p>
+    <p>US $100 or more: Free Shipping</p>
   </div></b>
 
-  </html>
+</html>

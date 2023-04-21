@@ -1,0 +1,24 @@
+/* styling for invoice  */
+/* changing the background color and aligning and sizing the text  */
+body {
+    margin: 0;
+    font-family: "Segoe UI",Arial,sans-serif;
+    background-color:white;
+    color: black;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  /* changing top color of invoice */
+th {
+    background-color:lightsteelblue;
+  }
+/* centering the invoice and adding color to it */
+table {
+    border-collapse: collapse;
+    background-color:white;
+    margin-left: auto;
+    margin-right: auto;
+    width:50%;
+    border: 1px solid lightsteelblue;
+}

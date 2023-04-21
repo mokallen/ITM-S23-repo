@@ -1,5 +1,6 @@
-#Plants {
-    font-family: "Arial", Helvetica, sans-serif;
+/* store name */
+#Plants { /* referenced code from chatgpt for a div using id plants from css, which is why all my files have id plants. i left it to save time but might go back and fix it */
+    font-family: "Segoe UI",Arial,sans-serif;
     letter-spacing: 5px;
     padding: 5px;
     margin-bottom: 60px;
@@ -35,15 +36,17 @@ a:active {
 /* Body styling */
 body {
     text-align: center;
-    font-family: "Arial", Helvetica, sans-serif;
-    background-image: url('./images/');
+    font-family: "Segoe UI",Arial,sans-serif;
+    background-image: url('./images/background.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 130%;
 }
 
-/* Login button */
-#login {
+/* Sign Up button */
+#registerbutton {
     margin-left: auto;
     margin-right: auto;
 }
+
+

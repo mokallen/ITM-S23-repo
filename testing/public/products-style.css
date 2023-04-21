@@ -1,6 +1,7 @@
-
 /* CSS to adjust format of main page in adddition to W3 template */
 /* W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
+
+/* i noticed from assignment 1 comments that there is a UI glitch. i have no idea how to fix it, and will try to fix it for assignment 3 */
 
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
 
@@ -17,19 +18,18 @@ html{
         width: 300px;
         height: 300px;
     }
-       /* Background color */
+       /* background color */
     body {
         background-color:white
       }
     
-/* Submit button */
+/* submit button */
 #submit {
    
     margin-left: auto;
     margin-right: auto;
 }
 
-/* CSS referenced from Jaden Morga */
 /* CSS from W3 Schools */
 /* End extract */
 html,body{font-family:Verdana,sans-serif;font-size:15px;line-height:1.5}html{overflow-x:hidden}

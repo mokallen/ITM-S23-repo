@@ -1,5 +1,4 @@
-<!-- authored by monika allen -->
-<!-- login page for the leo store site -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
-    <title>Login</title>
+    <title>login</title>
     <script>            
-    // gets form submission data inside params
+    // gets form submission data inside params.
         let params = (new URL(document.location)).searchParams; 
         window.onload = function () {
             if (params.has('LoginError')) {
                 // shows error with sign in
                 alert(params.get('LoginError')); 
-                // sticky textboxes for invalid data
+                // sticky textboxes for invalid data.
             } if (params.has('email')) {
                 email.value = params.get('email')
             }
@@ -24,7 +23,7 @@
 </head>
 <body>
     <a href="index.html">
-        <div id="Merchandise">
+        <div id="Plants"> <!-- copied message from register.html: referenced code from chatgpt for a div using id plants from css. faced a lot of issues trying to change it to a more fitting name, probably due to inconsistencies. so i just left it as is. it makes no sense but the site works so :sob: -->
             <h1>The Leo Store</h1>
         </div>
     </a>
@@ -33,7 +32,7 @@
         <h2>Login</h2>
         New to The Leo Store? <div class="create"><a href="register.html"><u>Create an account.</u></a></div>
 
-        
+        <!-- creating form to process login -->
         <form action="/process_login" method="POST" name="login_form">
             <p><b>Email</b></p>
             <p><input type="text" name="email" id="email" size="40" onchange='this.value=this.value.toLowerCase();' required></p>
@@ -41,7 +40,7 @@
             <p><input type="password" name="password" size="40" required></p>
             <input type="submit" value="Login" id="login">
 
-            <input type="submit" value="Edit User Registration" id="Edit User Registration" onclick="login_form.action='/redirect_edit'">
+            <input type="submit" value="Edit User Registration" id="Edit User Registration" onclick="login_form.action='/redirect_edit'"> <!-- redirects to edit registration -->
         </form>
 
     </div>

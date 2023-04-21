@@ -1,5 +1,5 @@
 <!-- authored by monika allen -->
-<!--registration page for the leo store site-->
+<!-- extra credit: page to edit registration information if the user chooses to. must input email first before being able to access editor -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,21 +7,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Edit</title>
     <link rel="stylesheet" href="register.css">
     <script>
         // if there are any errors in the sign up, the information will stay inside the textboxes so the customer can change it.
         let params = (new URL(document.location)).searchParams;
-          // check if username is valid and redirect to invoice if ok
+          //check if username is valid and redirect to invoice if ok
         window.onload = function () {
           if (params.has('reg_errors')) {
               // parse the errors. errors will show in red under each section
             var errors = JSON.parse(params.get('reg_errors')); 
-            // sticky textboxes
-            for (i = 0; i < register.elements.length; i++) {
-              register[i].value = params.get(register[i].name);
-              if (typeof errors[register[i].name] != 'undefined') {
-                document.getElementById(register[i].name + '_error').innerHTML = errors[register[i].name];
+            // sticky textboxes.
+            for (i = 0; i < edit.elements.length; i++) {
+                edit[i].value = params.get(edit[i].name);
+              if (typeof errors[edit[i].name] != 'undefined') {
+                document.getElementById(edit[i].name + '_error').innerHTML = errors[edit[i].name];
               }
             }
             // error message for the whole page
@@ -32,15 +32,15 @@
 </head>
 <body>
   <a href="index.html">
-        <div id="Merchandise">
+        <div id="Plants"> <!-- copied message from register.html: referenced code from chatgpt for a div using id plants from css. faced a lot of issues trying to change it to a more fitting name, probably due to inconsistencies. so i just left it as is. it makes no sense but the site works so :sob: -->
             <h1>The Leo Store </h1>
         </div>
     </a>
 
     <div class="box">
-        <h2>Create an Account</h2>
-
-        <form action="/process_register" method="POST" name="register">
+        <h2>Edit User Information </h2>
+      <!-- copied registration.html and made edits -->
+        <form action="/process_edit" method="POST" name="edit">
             <label for="email"><b>Email Address</b></label>
             <div id='email_error' style="color:red;"></div>
             <p><input type="text" name="email" id="email" size="40"></p>
@@ -48,6 +48,8 @@
             <label for="fullname"><b>Full Name</b></label>
             <div id='fullname_error' style="color:red;"></div>
             <p><input type="text" name="fullname" id="fullname" size="40"></p>
+
+
             <label for="password"><b>Password</b></label>
             <!-- IR3: suggestion of a strong password -->
            <p>a “strong” password consists of 10 random characters including numbers and special characters</p>
@@ -56,7 +58,7 @@
             <label for="confirmpassword"><b>Confirm Password</b></label>
             <div id='confirmpassword_error' style="color:red;"></div>
             <p><input type="password" name="confirmpassword" id="confirmpassword" size="40"></p>
-            <input type="submit" value="Register" id="registerbutton">
+            <input type="submit" value="Save Changes" id="Save Changes">
         </form>
     </div>
 </body>
