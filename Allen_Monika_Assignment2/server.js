@@ -357,7 +357,7 @@ app.post("/process_edit", function (req, res) {
     // password confirmation to make sure two passwords entered match
     if (/^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/.test(req.body.password)) {
     } else {
-        // error message pops upp if password does not contain at least one number or special character
+        // error message pops up if password does not contain at least one number or special character
         reg_errors['password'] = "Password must have at least one number and one special character";
     }
     if (req.body.password !== req.body.confirmpassword) {
