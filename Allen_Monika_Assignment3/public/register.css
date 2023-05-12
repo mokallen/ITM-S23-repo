@@ -37,10 +37,10 @@ a:active {
 body {
     text-align: center;
     font-family: 'roboto mono', sans;
-    background-color: white;
+    background-image: url('images/bg.png');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 130%;
+    background-size: 300%;
 }
 
 /* register button */

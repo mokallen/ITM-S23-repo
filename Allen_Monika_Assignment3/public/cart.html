@@ -5,6 +5,13 @@
 <html lang="en">
 
 <head>
+  <!-- setting highlight for IR4 -->
+  <style>
+    .favorited {
+      background-color: yellow;
+    }
+  </style>
+
   <script type="text/javascript" src="./function.js"></script>
   <script type="text/javascript" src="./products.js"></script>
   <script>
@@ -149,16 +156,10 @@
     </div>
   </div>
 
-  <style>
-    .favorited {
-      background-color: yellow;
-    }
-  </style>
-
 </head>
 
 <body>
-  <div class=”Cart-Container”>
+  <div class="Cart-Container">
     <form action="/update_cart" method="POST">
       <table border="2">
         <tbody>
@@ -182,28 +183,18 @@
                     itemRow += ` class="favorited"`;
                   }
                   itemRow += `>
-                        <td><img src="${products[pkey][i].image}" style="width:30%">${products[pkey][i]['name']}</td>
-                        <td align="center" width="11%" style="color:red">
-                          <input type="number" id="qty_${pkey}_${i}" name="qty_${pkey}_${i}" class="form-control text-center" value="${quantities}" min="0" max="${products[pkey][i].quantity_available}">
-                        </td>
-                        <td width="13%">$${products[pkey][i]['price']}</td>
-                        <td width="54%">$${extended_price}</td>
-                      </tr>`;
-
-                  document.write(` 
-                <tr id="item_${pkey}_${i}">
-                  <td><img src="${products[pkey][i].image}" style="width:30%">${products[pkey][i]['name']}</td>
-
-                  <td align="center" width="11%" style="color:red">
-                    <input type="number" id="qty_${pkey}_${i}" name="qty_${pkey}_${i}" class="form-control text-center" value="${quantities}" min="0" max="${products[pkey][i].quantity_available}">
-                  </td>
-
-                  <td width="13%">$${products[pkey][i]['price']}</td>
-                  <td width="54%">$${extended_price}</td> 
-                </tr>`)
+  <td><img src="${products[pkey][i].image}" style="width:30%">${products[pkey][i]['name']}</td>
+  <td align="center" width="11%" style="color:red">
+    <input type="number" id="qty_${pkey}_${i}" name="qty_${pkey}_${i}" class="form-control text-center" value="${quantities}" min="0" max="${products[pkey][i].quantity_available}">
+  </td>
+  <td width="13%">$${products[pkey][i]['price']}</td>
+  <td width="54%">$${extended_price}</td>
+</tr>`;
+                  document.write(itemRow);
                 }
               }
             }
+
             // compute tax
             var tax_rate = .020;
             var tax = subtotal * tax_rate;

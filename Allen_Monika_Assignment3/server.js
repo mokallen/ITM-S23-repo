@@ -544,7 +544,6 @@ app.get("/checkout", function (request, response) {
 });
 // referenced from assignment 3 code examples
 // load nodemailer package
-const nodemailer = require('nodemailer');
 app.post("/finish_purchase", function (request, response) {
     // generate HTML invoice string
     var invoice_str = `Thank you for your order!<table border><th>Quantity</th><th>Item</th>`;

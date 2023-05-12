@@ -32,11 +32,6 @@
         }
     </style>
     <!-- IR4 styling favorites button -->
-    <style>
-        .favorite {
-            background-color: red;
-        }
-    </style>
 
     <script>
         let params = (new URL(document.location)).searchParams;
@@ -175,47 +170,47 @@
     <!-- IR4: have an “add to favorites” icon for each item that when clicked, toggles an indication that an item is of interest (highlights/un-highlights icon). When the user views a product page, all favored items for that user will be highlighted. These should remain between page views. In the shopping cart, indicate which items are favored -->
 
     <script>
-// i am so sorry i tried my best but omg
+        // i am so sorry i tried my best but omg
         // function to toggle favorite button status: parts referenced from chatgpt and changed to highlight heart button
         function toggleFavorite(button) {
-            event.preventDefault(); // prevent the default form submission
+            event.preventDefault(); // to prevent default refresh
             button.classList.toggle("favorite");
             // get the corresponding product information
             const productIndex = Array.from(document.querySelectorAll(".favoriteBtn")).indexOf(button);
-            const product = products[products_key][productIndex];
+            const product = products[productIndex];
             // check if the product is already favorited
-            const isFavorited = favorites.includes(name.nameId);
+            const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            const isFavorited = favorites.includes(product);
             // add or remove the product from the favorites array
             if (isFavorited) {
                 favorites.splice(favorites.indexOf(product), 1);
             } else {
                 favorites.push(product);
             }
-
             // save the updated favorites array to local storage
             localStorage.setItem("favorites", JSON.stringify(favorites));
         }
 
-        // function to load and apply favorites on page load
         function loadFavorites() {
             const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-            // iterate through each product and check if it is in the favorites array
-            for (let i = 0; i < products[products_key].length; i++) {
-                const product = products[products_key][i];
-                const favoriteBtn = document.getElementById(`favoriteBtn${i}`);
-                // check if the product is favorited and apply the corresponding style
-                if (favorites.includes(product.id)) {
-                    favoriteBtn.classList.add("favorite");
+            // go through each product and check if it is in the favorites array
+            const buttons = document.querySelectorAll(".favoriteBtn");
+            buttons.forEach((button, index) => {
+                const product = products[index];
+                // check if product is favorited and apply the corresponding style
+                if (favorites.includes(product)) {
+                    button.classList.add("favorite");
                 } else {
-                    favoriteBtn.classList.remove("favorite");
+                    button.classList.remove("favorite");
                 }
-            }
-            // call the loadFavorites function when the window loads
-            window.onload = function () {
-                updateFavoritesUI(); // call the function to update favorites status
-                loadFavorites(); // call the function to load favorites from local storage // attempt to keep favorites even after user changes pages
-            }
+            });
         }
+        // call the loadFavorites function when the window loads
+        window.onload = function () {
+            loadFavorites(); // call function to load favorites from local storage // attempt to keep favorites even after user changes pages
+            updateFavoritesUI(); // call the function to update favorites status
+        };
+
     </script>
 
     <div class="w3-main w3-content w3-padding" style="max-width:2000px;margin-top:100px">
@@ -252,11 +247,16 @@
                         <p id="quantity[${i}]_label">Quantity:</p>
                         <input type="text" placeholder="We have ${products[products_key][i].quantity_available} available" name="quantity${i}" id="quantity[${i}]" onkeyup="checkQuantityTextbox(this);">
                         <input type="submit" class="button" value="Add to Cart" id="submit">
-                        <input type="button" class="button favoriteBtn" value="❤︎" onclick="toggleFavorite(this);">
+                        <input type="button" class="button favoriteBtn" value="❤︎" id="favoriteBtn${i}" onclick="toggleFavorite(this);">
                     </div>
         `);
                     }
                 </script>
+                    <style>
+                        .favorite {
+                            background-color: red;
+                        }
+                    </style>
             </main>
 
             <script>
