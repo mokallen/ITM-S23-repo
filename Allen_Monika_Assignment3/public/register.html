@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="register.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+    
     <style>
       body,
       h1,
@@ -57,7 +58,7 @@
     </style>
 
     <script>
-      // if there are any errors in the sign up, the information will stay inside the textboxes so the customer can change it.
+      // if there are errors in the sign up the information will stay inside the textboxes so the customer can change it
       let params = (new URL(document.location)).searchParams;
       // check if username is valid and redirect to invoice if ok
       window.onload = function () {
@@ -92,11 +93,13 @@
       <p><input type="text" name="fullname" id="fullname" size="40"></p>
       <label for="password"><b>Password</b></label>
       <p>a “strong” password consists of 10 random characters including numbers and special characters</p>
+
       <div id='password_error' style="color:red;"></div>
       <p><input type="password" name="password" id="password" size="40"></p>
       <label for="confirmpassword"><b>Confirm Password</b></label>
       <div id='confirmpassword_error' style="color:red;"></div>
       <p><input type="password" name="confirmpassword" id="confirmpassword" size="40"></p>
+      
       <input type="submit" value="Register" id="registerbutton">
     </form>
   </div>

@@ -40,7 +40,7 @@
 
     <script>
         let params = (new URL(document.location)).searchParams;
-        /* code to direct user to the appropriate product page; retrieved from assignment 3 example code*/
+        // code to direct user to the appropriate product page; referenced from assignment 3 example code
         // get the query string
         if (params.has('products_key')) {
             var products_key = params.get('products_key');
@@ -69,23 +69,23 @@
         window.onload = function () {
             // if the url has 'inputError', it means that there is a negative, non-integer, or non-number value
             if (params.has('inputError')) {
-                // make an alert with the value of key: inputError, which is "Please correct all errors"
+                // make an alert with the value of key: inputError, which is "please correct all errors"
                 alert(params.get('inputError'));
                 for (let i in products) {
                     // display the error message in the label
                     document.getElementById(`quantity${i}_label`).innerHTML = params.get(`q_error${i}`);
-                    // display what the user inputted in the value of the input box by getting the value from the URL that matches with key 'quantity${i}'
+                    // display what the user inputted in value of the input box by getting the value from the URL that matches with key 'quantity${i}'
                     inputForm[`qInput${i}`].value = params.get(`quantity${i}`);
                 }
             }
-            // if the url has the key 'noQuantities', it means that there are no quantities inputted
-            // if so, send an alert with the value 'Please enter a quantity'
+            // if url has the key 'noQuantities', there are no quantities inputted
+            // send an alert with the value 'please enter a quantity'
             if (params.has('noQuantities')) {
                 alert(params.get('noQuantities'));
             }
         }
 
-        // this code displays my website which includes textboxes that customers can fill out. the code below creates which quantitees are valid to go through to the invoice
+        // displays website with textboxes that customers can fill out; creates which quantitees are valid to go through to the invoice
         // checking to see if inbox has valid quantities and to add pop ups to inform customers 
         function checkQuantityTextbox(theTextbox) {
             console.log("in checkbox", theTextbox.name);
@@ -146,7 +146,7 @@
                     let element = document.getElementById(`item_${pkey}_${i}`);
                     if (element) {
                         if (item.favorites) {
-                            element.classList.add("favorited"); // add a CSS class to indicate favorited item
+                            element.classList.add("favorited"); // add CSS class to indicate favorited item
                         } else {
                             element.classList.remove("favorited"); // remove the CSS class if not favorited
                         }
@@ -175,11 +175,11 @@
     <!-- IR4: have an “add to favorites” icon for each item that when clicked, toggles an indication that an item is of interest (highlights/un-highlights icon). When the user views a product page, all favored items for that user will be highlighted. These should remain between page views. In the shopping cart, indicate which items are favored -->
 
     <script>
-        // function to toggle favorite button status: some parts referenced from chatgpt and changed to highlight heart button
+// i am so sorry i tried my best but omg
+        // function to toggle favorite button status: parts referenced from chatgpt and changed to highlight heart button
         function toggleFavorite(button) {
             event.preventDefault(); // prevent the default form submission
             button.classList.toggle("favorite");
-
             // get the corresponding product information
             const productIndex = Array.from(document.querySelectorAll(".favoriteBtn")).indexOf(button);
             const product = products[products_key][productIndex];
@@ -213,7 +213,7 @@
             // call the loadFavorites function when the window loads
             window.onload = function () {
                 updateFavoritesUI(); // call the function to update favorites status
-                loadFavorites(); // call the function to load favorites from local storage
+                loadFavorites(); // call the function to load favorites from local storage // attempt to keep favorites even after user changes pages
             }
         }
     </script>
@@ -243,7 +243,7 @@
             <main>
                 <script>
                     document.write(`<input type = "hidden" name="products_key" value="${products_key}">`);
-                    for (i = 0; i < products[products_key].length; i++) { // modifed asst 3 example code
+                    for (i = 0; i < products[products_key].length; i++) { // referenced assignment 3 example code
 
                         document.write(`
                       <div class="panel-body"><img src="${products[products_key][i].image}"</div>
@@ -260,7 +260,7 @@
             </main>
 
             <script>
-                // make a hidden input box to store the products_key so it can be used on server side
+                // make hidden input box to store the products_key so it can be used on server side
                 document.write(`<input type='hidden' name='products_key' value='${products_key}'`);
                 // script to open and close sidebar
                 function w3_open() {

@@ -1,5 +1,5 @@
 <!-- monika allen -->
-<!-- login page for leo store - note: as the password must be 10 characters with 1 special character, the login for the grader account is email: itm352@hawaii.edu & pass: 352Grader!-->
+<!-- this is the login page for the leo store. user can login to existing account or create a new one -->
 <!DOCTYPE html>
 <script src="/user_data.js" type="json"></script>
 <script src="./products.js"></script>
@@ -10,7 +10,7 @@
         var products_key = params.get('products_key');
     }
     else {
-        products_key = "Best Sellers";// direct to best sellers page
+        products_key = "Best Sellers"; // direct to best sellers page
     }
     var products_data;
     loadJSON('get_products_data', function (response) {
@@ -93,7 +93,7 @@
         <h2>Login</h2>
         New to The Leo Store? <div class="create"><a href="register.html"><u>Create an account.</u></a></div>
 
-
+<!-- form to process login -->
         <form action="/process_login" method="POST" name="login_form">
             <p><b>Email</b></p>
             <p><input type="text" name="email" id="email" size="40" onchange='this.value=this.value.toLowerCase();'

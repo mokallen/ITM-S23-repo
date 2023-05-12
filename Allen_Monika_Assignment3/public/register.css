@@ -1,4 +1,4 @@
-/* Store name */
+/* store name */
 #Plants {
     font-family: 'roboto mono', sans;
     letter-spacing: 5px;
@@ -27,13 +27,13 @@ a:active {
     color: black;
 }
 
-/* Create an account hover */
+/* create an account hover */
 .create a:hover {
     font-weight: bold;
     color: black;
 }
 
-/* Body styling */
+/* body styling */
 body {
     text-align: center;
     font-family: 'roboto mono', sans;
@@ -43,7 +43,7 @@ body {
     background-size: 130%;
 }
 
-/* Register button */
+/* register button */
 #registerbutton {
     float: center;
     background-color: white;
@@ -52,7 +52,7 @@ body {
     font-size: 15px;
 }
 
-/* Register button */
+/* register button */
 #Savechanges {
     float: center;
     background-color: white;

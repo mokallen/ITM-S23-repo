@@ -4,7 +4,7 @@
 // encryption and decryption
 // code referenced from https://stackoverflow.com/questions/51280576/trying-to-add-data-in-unsupported-state-at-cipher-update
 
-// allows you to put anything in here, you have to choose a string to server as the "key" to encrypt and decrypt
+// allows anything to be put here, must choose a string to server as the "key" to encrypt and decrypt
 let secrateKey = "secrateKey";
 // requires crypto library
 const crypto = require('crypto');
@@ -46,7 +46,7 @@ if (fs.existsSync(filename)) {
     // parse user data
     var user_data = JSON.parse(data);
 }
- 
+
 // used to store quantity data from products disiplay page
 // assume empty at first
 var temp_info = {};
@@ -79,8 +79,8 @@ app.all('*', function (request, response, next) {
 // products data from json file and stores it
 var products = require(__dirname + '/products.json');
 
-// object.keys(products)[i] is going to get the keys from products, so it's getting Best Sellers, Tools, Succulents
-// then, you're gonna search for the array that corresponds to that speicfic category of products using products[Object.keys(products)[i]]
+// object.keys(products)[i] is going to get the keys from products: best sellers, tools, accessories
+// search for array that corresponds to the category of products using products[Object.keys(products)[i]]
 // search for the array in the products object
 for (let i = 0; i < Object.keys(products).length; i++) {
     products[Object.keys(products)[i]].forEach((prod, i) => { prod.total_sold = 0 });
@@ -90,7 +90,7 @@ for (let i = 0; i < Object.keys(products).length; i++) {
 app.get("/products.js", function (request, response, next) {
     response.type('.js');
     var products_str = `var products = ${JSON.stringify(products)};`;
-    //Send string of data as response to requests
+    // send string of data as response to requests
     response.send(products_str);
 });
 // get products data
@@ -108,7 +108,7 @@ app.post('/process_form', function (request, response) {
 
     // for loop that checks if their is a valid quantity inputted
     for (let i = 0; i < products.length; i++) {
-        // Retrieve the quantity input from the POST method
+        // retrieve quantity input from the POST method
         qtys = POST[`quantity` + i];
 
 
@@ -117,7 +117,7 @@ app.post('/process_form', function (request, response) {
         // if there's no quantities selected push an error & create flag to see if there are quantities in the input boxes
         Valid_Purchase = Valid_Purchase || (qtys > 0);
 
-        // code demonstrated by Professor in class for assignment 1 on 11/1
+        // code demonstrated in class
         if (isNonNegInt(qtys, false) == false) {
             // if there is an error, make the error message the values for key q_error${i}        
             errorsObject[`q_error${i}`] = isNonNegInt(qtys, true);
@@ -132,21 +132,21 @@ app.post('/process_form', function (request, response) {
             qtys = POST[`quantity` + i];
             // calculate total sold by adding the user input after each form submission
             products[i].total_sold += Number(qtys);
-            // next, take the quantity available and calculate "remaining-number of quantities" to output how many more products are availble for sale
+            // take quantity available and calculate "remaining-number of quantities" to output how many more products are availble for sale
             products[i].quantity_available = products[i].quantity_available - Number(qtys);
-            // store the quantities in the temp_data object so that it can be passed to the invoice
+            // store quantities in temp_data object so it can be passed to the invoice
             temp_info[`quantity${[i]}`] = POST[`quantity${[i]}`];
 
         }
         // line is outside of the loop because you don't want to have more than one response
         response.redirect("./login.html?" + qs.stringify(request.body));
     }
-    // if all input boxes are empty AND if the purchase input is invalid
+    // if all input boxes are empty and if purchase input is invalid
     // redirect to index.html with appended key: noQuantities and value: "please enter a quantity"
     else if ((Valid_Purchase == false) && (Object.keys(errorsObject).length == 0)) {
         response.redirect("./index.html?" + qs.stringify(request.body) + `&noQuantities=Please enter a quantity`);
     }
-    // if there is an input error, meaning the errorsObject has something in it
+    // if there is an input error
     // redirect to index.html with appended key: inputError and value: "please correct all errors"
     // append the errorsObject as a string
     else if ((Object.keys(errorsObject).length > 0)) {
@@ -196,7 +196,7 @@ app.post("/process_login", function (req, res) {
 });
 
 // POST request form register for account
-// inspired by Lab 13 Ex 3 a
+// inspired by Lab 13
 // registration validation adpoted & modified from https://www.w3resource.com/javascript/form/javascript-sample-registration-form-validation.php
 app.post("/process_register", function (req, res) {
     // assume no errors at start
@@ -417,7 +417,7 @@ app.post("/process_edit", function (req, res) {
 // adding items to cart
 // process purchase request (validate quantities, check quantity available)
 app.post('/add_to_cart', function (request, response, next) {
-     // get the products_key from the hidden input box
+    // get the products_key from the hidden input box
     var products_key = request.body['products_key'];
 
     // retrieve the request body
@@ -468,7 +468,7 @@ app.post('/add_to_cart', function (request, response, next) {
         // redirect back to products display, append the products_key and the user's input 
         if (!request.session.cart) {
             // if there are no carts for the session, it will create one
-            request.session.cart = {}; 
+            request.session.cart = {};
         }
         if (typeof request.session.cart[products_key] == 'undefined') { // make an array for each product category
             request.session.cart[products_key] = [];
@@ -482,24 +482,24 @@ app.post('/add_to_cart', function (request, response, next) {
             userProducts.push(Number(POST[`quantity${i}`]));
         }
         console.log(userProducts)
-        
+
         // setting userProdcts into sessions
         request.session.cart[products_key] = userProducts;
         console.log(request.session.cart);
 
         response.redirect("./cart.html")
     }
-        // if all input boxes are empty and if the purchase input is invalid
-        // redirect to index.html with appended key: noQuantities and value: "please enter a quantity"
-        else if ((Valid_Purchase == false) && (Object.keys(errorsObject).length == 0)) {
-            response.redirect("./productsdisplay.html?" + qs.stringify(request.body) + `&noQuantities=Please enter a quantity`);
+    // if all input boxes are empty and if the purchase input is invalid
+    // redirect to index.html with appended key: noQuantities and value: "please enter a quantity"
+    else if ((Valid_Purchase == false) && (Object.keys(errorsObject).length == 0)) {
+        response.redirect("./productsdisplay.html?" + qs.stringify(request.body) + `&noQuantities=Please enter a quantity`);
     }
-        // if there is an input error, meaning the errorsObject has something in it
-        // redirect to index.html with appended key: inputError and value: "please correct all errors"
-        // append the errorsObject as a string
-        else if ((Object.keys(errorsObject).length > 0)) {
-            response.redirect("./productsdisplay.html?" + qs.stringify(request.body) + `&inputError=Please correct all errors` + `&` + qs.stringify(errorsObject));
-            console.log(errorsObject);
+    // if there is an input error, meaning the errorsObject has something in it
+    // redirect to index.html with appended key: inputError and value: "please correct all errors"
+    // append the errorsObject as a string
+    else if ((Object.keys(errorsObject).length > 0)) {
+        response.redirect("./productsdisplay.html?" + qs.stringify(request.body) + `&inputError=Please correct all errors` + `&` + qs.stringify(errorsObject));
+        console.log(errorsObject);
     }
 });
 
@@ -509,20 +509,20 @@ app.post('/get_cart', function (request, response) {
 
 // update quantities from cart page
 app.post("/update_cart", function (request, response) {
-    for (let pkey in request.session.cart) { 
+    for (let pkey in request.session.cart) {
         // loop through cart products
-       for (let i in request.session.cart[pkey]) { 
-           // loop through product's selected quantity
-          if (typeof request.body[`qty_${pkey}_${i}`] != 'undefined') {
-             // add or remove updated quantities from inventory
-             request.session.cart[pkey][i].quantity_available -= request.session.cart[pkey][i];
-             // update cart data with new quantity
-             request.session.cart[pkey][i] = Number(request.body[`qty_${pkey}_${i}`]);
+        for (let i in request.session.cart[pkey]) {
+            // loop through product's selected quantity
+            if (typeof request.body[`qty_${pkey}_${i}`] != 'undefined') {
+                // add or remove updated quantities from inventory
+                request.session.cart[pkey][i].quantity_available -= request.session.cart[pkey][i];
+                // update cart data with new quantity
+                request.session.cart[pkey][i] = Number(request.body[`qty_${pkey}_${i}`]);
 
             }
         }
-     }
-  response.redirect("./cart.html"); // goes to shopping cart
+    }
+    response.redirect("./cart.html"); // goes to shopping cart
 });
 
 // checkout from cart page
@@ -530,76 +530,82 @@ app.get("/checkout", function (request, response) {
     // checks for errors
     var errors = {};
     // looks for cookie to see if logged in
-    if (typeof request.cookies['user_cookie'] == 'undefined') { 
+    if (typeof request.cookies['user_cookie'] == 'undefined') {
         // if not will send to login page
-       response.redirect(`./login.html`);
-       console.log(request.cookies);
-       return;
+        response.redirect(`./login.html`);
+        console.log(request.cookies);
+        return;
     } else {
         console.log(request.cookies);
         // will send to invoice if logged in
-        response.redirect(`./invoice.html?`); 
+        response.redirect(`./invoice.html?`);
     }
- 
- });
+
+});
 // referenced from assignment 3 code examples
- app.post("/finish_purchase", function (request, response) {
+// load nodemailer package
+const nodemailer = require('nodemailer');
+app.post("/finish_purchase", function (request, response) {
     // generate HTML invoice string
     var invoice_str = `Thank you for your order!<table border><th>Quantity</th><th>Item</th>`;
     var shopping_cart = request.session.cart;
-    for(products_key in products) {
-      for(i=0; i< products[products_key].length; i++) {
-          if(typeof shopping_cart[products_key] == 'undefined') continue;
-          qty = shopping_cart[products_key][i];
-          if(qty > 0) {
-            invoice_str += `<tr><td>${qty}</td><td>${products[products_key][i].name}</td><tr>`;
-          }
-      }
+    for (products_key in products) {
+        for (i = 0; i < products[products_key].length; i++) {
+            if (typeof shopping_cart[products_key] == 'undefined') continue;
+            qty = shopping_cart[products_key][i];
+            if (qty > 0) {
+                invoice_str += `<tr><td>${qty}</td><td>${products[products_key][i].name}</td><tr>`;
+            }
+        }
     }
     invoice_str += '</table>';
-    // referenced from jaden morga
     // set up mail server. only will work on UH Network due to security restrictions
     var transporter = nodemailer.createTransport({
-      host: "mail.hawaii.edu",
-      port: 25,
-      secure: false, // use TLS
-      tls: {
-        // do not fail on invalid certs
-        rejectUnauthorized: false
-      }
-    });
-    
-    var user_email = JSON.parse(request.cookies['user_cookie']).email
-    var mailOptions = {
-      from: 'monikak@hawaii.edu',
-      to: user_email,
-      subject: 'The Leo Store Invoice',
-      html: invoice_str
-    };
-   // referenced from thuyvi le
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-           response.redirect('invoice.html');
-        } else {
-            response.redirect('thankyou.html');
+        host: "mail.hawaii.edu",
+        port: 25,
+        secure: false, // use TLS
+        tls: {
+            // do not fail on invalid certs
+            rejectUnauthorized: false
         }
     });
-    request.session.destroy(); // ends session after user confirms purchase
-    
-    });
 
-    // log out and redirect to home page from thank you page
+    var user_email = JSON.parse(request.cookies['user_cookie']).email
+    var mailOptions = {
+        from: 'monikak@hawaii.edu',
+        to: user_email,
+        subject: 'Your Leo Store Invoice',
+        html: invoice_str
+    };
+    // send email
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            // if an error occurs in email settings
+            console.log(error)
+            invoice_str += '<br>There was an error and your invoice could not be emailed :(';
+        } else {
+            // add email document if an error does not occur in the email settings
+            invoice_str += `<br>Your invoice was mailed to ${user_email}`;
+        }
+        // send email
+        response.send(invoice_str);
+    });
+    request.session.destroy(); // ends session after user confirms purchase
+
+});
+
+// log out and redirect to home page from thank you page
 app.get("/logout_done", function (request, response) {
     response.clearCookie('users_name');
-    response.redirect('index.html');
+    response.clearCookie("products"); // deletes cookie information products
+    response.redirect('index.html'); // redirect to index
 });
 // route all other GET requests to files in public 
 app.use(express.static(__dirname + '/public'));
 // starts server
 app.listen(8080, () => console.log(`listening on port 8080`));
 
-// everytime this is ran it clears out my errors
+// recieved help in ITMA, referenced by jaden morga and blake saari: everytime this is ran it clears out errors
 function isNonNegInt(arrayElement, returnErrors = false) {
 
     // prioritizing the errorsObject to display errors rather than this array
