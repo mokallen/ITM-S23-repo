@@ -1,0 +1,300 @@
+<!-- monika allen -->
+<!-- this is for the leo store cart page -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script type="text/javascript" src="./function.js"></script>
+  <script type="text/javascript" src="./products.js"></script>
+  <script>
+    // get the query string
+    let params = (new URL(document.location)).searchParams;
+    // referenced from assignment 3 code example
+
+    if (params.has('products_key')) {
+      var this_product_key = params.get('products_key');
+    } else {
+      products_key = "Best Sellers";
+    }
+
+    var products_data;
+    loadJSON('get_products_data', function (response) {
+      // parsing JSON string into object
+      products_data = JSON.parse(response);
+    });
+
+    var shopping_cart;
+    var total = 0;
+    loadJSON('./get_cart', function (response) {
+      // parsing JSON string into object
+      shopping_cart = JSON.parse(response);
+      for (pk in shopping_cart) {
+        // calculates total number of products in shopping cart by looping through all the product categories
+        total += shopping_cart[pk].reduce((a, b) => a + b);
+      }
+    });
+
+    // author: bao vy tran
+    // code grabs cookies to be used in this file
+    function getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          var string = c.substring(name.length, c.length);
+          return JSON.parse(string);
+        }
+      }
+      return "";
+    }
+    // defines variables
+    if (getCookie('user_cookie') != false) {
+      var user_cookie = getCookie('user_cookie');
+      var name = user_cookie['name'];
+      var email = user_cookie['email'];
+    }
+
+    // product quantities are in the querystring
+    // get request for products in array
+    // new array with quantities the user inputs
+    var quantities = [];
+    // invoice generation based on product quantities in querystring
+    if (params.has('purchasebutton')) {
+      for (i = 0; i < products.length; i++) {
+        if (params.has(`quantity${i}`)) {
+          a_qty = params.get(`quantity${i}`);
+          quantities[i] = a_qty;
+        }
+      }
+    }
+
+    if (params.has('favorited')) {
+      // get the product ID of the favorited item
+      let favorited_id = params.get('favorited');
+      // get the list of products from the cart
+      let cart_products = shopping_cart[products_key];
+      // loop through the products to find the favorited item
+      for (let pkey in cart_products) {
+        for (let i in cart_products[pkey]) {
+          if (cart_products[pkey][i].id === favorited_id) {
+            // get the row element for the favorited item
+            let favorited_row = document.getElementById(`item_${pkey}_${i}`);
+            if (favorited_row) {
+              // add the "favorited" class to the row element
+              favorited_row.classList.add("favorited");
+            }
+            break; // exit the loop since the favorited item is found
+          }
+        }
+      }
+    }
+
+  </script>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="cart.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "Karma", sans-serif
+    }
+
+    .w3-bar-block .w3-bar-item {
+      padding: 20px
+    }
+
+    /* nav bar */
+    .w3-bar-block .w3-bar-item {
+      padding: 20px;
+    }
+  </style>
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main w3-content w3-padding" style="max-width:2000px;margin-top:100px">
+    <!-- top menu -->
+    <div class="w3-top">
+      <!-- sidebar (hidden by default) -->
+      <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left"
+        style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">Close Menu</a>
+        <a href="./index.html" onclick="w3_close()" class="w3-bar-item w3-button">Home</a>
+        <script>
+          nav_bar(this_product_key, products_data);
+        </script>
+        <a href="./login.html" onclick="w3_close()" class="w3-bar-item w3-button">Log In</a>
+        <a href="./register.html" onclick="w3_close()" class="w3-bar-item w3-button">Register</a>
+      </nav>
+      <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+        <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+        <div class="w3-center w3-padding-16">The Leo Store</div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .favorited {
+      background-color: yellow;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class=”Cart-Container”>
+    <form action="/update_cart" method="POST">
+      <table border="2">
+        <tbody>
+          <tr>
+            <th style="text-align: center;" width="43%">Item</th>
+            <th style="text-align: center;" width="11%">Quantity</th>
+            <th style="text-align: center;" width="13%">Price</th>
+            <th style="text-align: center;" width="54%">Extended Price</th>
+          </tr>
+          <script>
+            subtotal = 0;
+            for (let pkey in shopping_cart) {
+              for (let i in shopping_cart[pkey]) {
+                let quantities = shopping_cart[pkey][i];
+                if (quantities > 0) {
+                  extended_price = quantities * products[pkey][i].price
+                  subtotal += extended_price;
+                  // modified to generate rows to checks if the current product is favorited (products[pkey][i].favorited) and adds the "favorited" class to the <tr> element if true
+                  let itemRow = `<tr id="item_${pkey}_${i}"`;
+                  if (products[pkey][i].favorited) {
+                    itemRow += ` class="favorited"`;
+                  }
+                  itemRow += `>
+                        <td><img src="${products[pkey][i].image}" style="width:30%">${products[pkey][i]['name']}</td>
+                        <td align="center" width="11%" style="color:red">
+                          <input type="number" id="qty_${pkey}_${i}" name="qty_${pkey}_${i}" class="form-control text-center" value="${quantities}" min="0" max="${products[pkey][i].quantity_available}">
+                        </td>
+                        <td width="13%">$${products[pkey][i]['price']}</td>
+                        <td width="54%">$${extended_price}</td>
+                      </tr>`;
+
+                  document.write(` 
+                <tr id="item_${pkey}_${i}">
+                  <td><img src="${products[pkey][i].image}" style="width:30%">${products[pkey][i]['name']}</td>
+
+                  <td align="center" width="11%" style="color:red">
+                    <input type="number" id="qty_${pkey}_${i}" name="qty_${pkey}_${i}" class="form-control text-center" value="${quantities}" min="0" max="${products[pkey][i].quantity_available}">
+                  </td>
+
+                  <td width="13%">$${products[pkey][i]['price']}</td>
+                  <td width="54%">$${extended_price}</td> 
+                </tr>`)
+                }
+              }
+            }
+            // compute tax
+            var tax_rate = .020;
+            var tax = subtotal * tax_rate;
+
+            // compute shipping based on shipping policy
+            var shipping;
+            if (subtotal <= 49.99) {
+              shipping = 10;
+            } else if (50 < subtotal <= 99.99) {
+              shipping = 5;
+            } if (subtotal > 100) {
+              shipping = 0
+            }
+
+            // compute total 
+            var total = tax + subtotal + shipping;
+
+    // displays subtotal, tax rate, shipping, and total price at the bottom of invoice
+          </script>
+
+          <tr>
+            <td colspan="4" width="100%">&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;" colspan="3" width="67%">Subtotal</td>
+            <td width="54%">$
+              <script>
+                document.write(subtotal);
+              </script>
+          <tr>
+            <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Tax @
+                <script>
+                  document.write(tax_rate * 100); </script>%
+              </span></td>
+            <td width="54%">$
+              <script>
+                document.write(tax.toFixed(2));
+              </script>
+            </td>
+
+          <tr>
+
+          <tr>
+            <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Shipping</span>
+            </td>
+            <td width="54%">$
+              <script>
+                document.write(shipping.toFixed(2));
+              </script>
+            </td>
+
+          <tr>
+            <td style="text-align: center;" colspan="3" width="67%"><strong>Total</strong></td>
+            <td width="54%">$<stong>
+                <script>
+                  document.write(total.toFixed(2));
+                </script>
+              </stong>
+</body>
+</table>
+</script>
+</tbody>
+</table>
+<input class="button" type="submit" value="Update Cart!">
+</form>
+</div>
+
+<script>
+  window.onload = updateFavoritesUI;
+</script>
+
+</body>
+</table>
+
+<form action="/checkout" method="GET">
+  <input class="button" type="submit" value="Checkout!">
+</form>
+
+<script>
+  // script to open and close sidebar
+  function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+  }
+
+  function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+  }
+</script>
+<script>
+  document.write(`
+       <h1>Thank you ${email} for shopping with us!</h1>
+       `)
+</script>
+
+</html>

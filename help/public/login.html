@@ -1,0 +1,121 @@
+<!-- monika allen -->
+<!-- login page for leo store - note: as the password must be 10 characters with 1 special character, the login for the grader account is email: itm352@hawaii.edu & pass: 352Grader!-->
+<!DOCTYPE html>
+<script src="/user_data.js" type="json"></script>
+<script src="./products.js"></script>
+<script src="./function.js"></script>
+
+<script>
+    if (params.has('products_key')) {
+        var products_key = params.get('products_key');
+    }
+    else {
+        products_key = "Best Sellers";// direct to best sellers page
+    }
+    var products_data;
+    loadJSON('get_products_data', function (response) {
+        // parsing JSON string into object
+        products_data = JSON.parse(response);
+    })
+    var this_product_key = '';
+</script>
+
+<head>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main w3-content w3-padding" style="max-width:2000px;margin-top:100px">
+
+        <!-- top menu -->
+        <div class="w3-top">
+
+            <!-- sidebar (hidden by default) -->
+            <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left"
+                style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
+                <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">Close Menu</a>
+                <script>
+                    nav_bar(this_product_key, products_data);
+                </script>
+                <a href="./index.html" onclick="w3_close()" class="w3-bar-item w3-button">Home</a>
+                <a href="./register.html" onclick="w3_close()" class="w3-bar-item w3-button">Register</a>
+                <a href="./cart.html" onclick="w3_close()" class="w3-bar-item w3-button">My Cart</a>
+            </nav>
+            <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+                <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+                <div class="w3-center w3-padding-16">The Leo Store</div>
+            </div>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <link rel="stylesheet" href="login.css">
+            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+            <title>Login</title>
+            <style>
+                body,
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6 {
+                    font-family: "Karma", sans-serif
+                }
+
+                .w3-bar-block .w3-bar-item {
+                    padding: 20px
+                }
+
+                /* nav bar */
+                .w3-bar-block .w3-bar-item {
+                    padding: 20px;
+                }
+            </style>
+
+            <script>
+                // gets form submission data inside params
+                let params = (new URL(document.location)).searchParams;
+                window.onload = function () {
+                    if (params.has('LoginError')) {
+                        // shows error with sign in
+                        alert(params.get('LoginError'));
+                        // sticky textboxes for invalid data.
+                    } if (params.has('email')) {
+                        email.value = params.get('email')
+                    }
+                }
+            </script>
+</head>
+
+<body>
+
+    <div class="box">
+        <h2>Login</h2>
+        New to The Leo Store? <div class="create"><a href="register.html"><u>Create an account.</u></a></div>
+
+
+        <form action="/process_login" method="POST" name="login_form">
+            <p><b>Email</b></p>
+            <p><input type="text" name="email" id="email" size="40" onchange='this.value=this.value.toLowerCase();'
+                    required></p>
+            <p><b>Password</b></p>
+            <p><input type="password" name="password" size="40" required></p>
+            <input type="submit" value="Login" id="login">
+
+            <input type="submit" value="Edit User Registration" id="Edit" onclick="login_form.action='/redirect_edit'">
+        </form>
+
+    </div>
+</body>
+<script>
+    // script to open and close sidebar
+    function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+    }
+
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+    }
+</script>
+
+</html>

@@ -1,0 +1,278 @@
+<!-- monika allen -->
+<!-- website built using html for the leo store; will display and assist users in entering appropriate quantities to complete their purchase -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- author: ww3 schools -->
+    <title>The Leo Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="allproducts.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" src="./function.js"></script>
+    <script type="text/javascript" src="./products.js"></script>
+
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Karma", sans-serif
+        }
+
+        .w3-bar-block .w3-bar-item {
+            padding: 20px
+        }
+    </style>
+    <!-- IR4 styling favorites button -->
+    <style>
+        .favorite {
+            background-color: red;
+        }
+    </style>
+
+    <script>
+        let params = (new URL(document.location)).searchParams;
+        /* code to direct user to the appropriate product page; retrieved from assignment 3 example code*/
+        // get the query string
+        if (params.has('products_key')) {
+            var products_key = params.get('products_key');
+        }
+        else {
+            products_key = "Best Sellers"; // auto direct to best sellers page
+        }
+        var products_data;
+        loadJSON('get_products_data', function (response) {
+            // parsing JSON string into object
+            products_data = JSON.parse(response);
+        })
+        var this_product_key = '';
+        var shopping_cart;
+        var total = 0;
+
+        loadJSON('./get_cart', function (response) {
+            // parsing JSON string into object
+            shopping_cart = JSON.parse(response);
+            for (pk in shopping_cart) {
+                total += shopping_cart[pk].reduce((a, b) => a + b);
+            }
+        });
+
+        // when the window loads, perform the following function:
+        window.onload = function () {
+            // if the url has 'inputError', it means that there is a negative, non-integer, or non-number value
+            if (params.has('inputError')) {
+                // make an alert with the value of key: inputError, which is "Please correct all errors"
+                alert(params.get('inputError'));
+                for (let i in products) {
+                    // display the error message in the label
+                    document.getElementById(`quantity${i}_label`).innerHTML = params.get(`q_error${i}`);
+                    // display what the user inputted in the value of the input box by getting the value from the URL that matches with key 'quantity${i}'
+                    inputForm[`qInput${i}`].value = params.get(`quantity${i}`);
+                }
+            }
+            // if the url has the key 'noQuantities', it means that there are no quantities inputted
+            // if so, send an alert with the value 'Please enter a quantity'
+            if (params.has('noQuantities')) {
+                alert(params.get('noQuantities'));
+            }
+        }
+
+        // this code displays my website which includes textboxes that customers can fill out. the code below creates which quantitees are valid to go through to the invoice
+        // checking to see if inbox has valid quantities and to add pop ups to inform customers 
+        function checkQuantityTextbox(theTextbox) {
+            console.log("in checkbox", theTextbox.name);
+
+            // setting all errors to isNonNegInt
+            errors = isNonNegInt(theTextbox.value, true);
+            // will display if input is 0
+            if (errors.length == 0) errors = ['Enter your quantity desired: '];
+            // will display if input is blank
+            if (theTextbox.value.trim() == '') errors = ['Enter your quantity desired: '];
+            // will display errors in red font
+            if (errors.length > 0) {
+                document.getElementById(theTextbox.name + '_label').innerHTML = errors.join(
+                    '<font color="red">, </font>');
+            }
+        }
+        // code referenced from Lab 11
+        function isNonNegInt(arrayElement, returnErrors = false) {
+            errors = []; // assume no errors at first
+            if (Number(arrayElement) != arrayElement) errors.push(
+                '<font color="red">Not a number!</font>'); // check if string is a number value
+            else {
+                if (arrayElement < 0) errors.push('<font color="red">Quantity cannot be a negative!</font>');
+                // checking if input is an integer; check if it is non-negative
+                if (parseInt(arrayElement) != arrayElement) errors.push(
+                    '<font color="red">Not an integer!</font>'); // check that it is an integer
+                if ((parseInt(arrayElement) == arrayElement) && (arrayElement >=
+                    0)) { // check that it is a positive integer
+                    // loop through the products array
+                    for (let i = 0; i < products.length; i++) {
+                        // set user input ID
+                        var inputValue = document.getElementById(`qInput${i}`).value;
+                        // when user inputs quantity higher than what is available)
+                        if ((inputValue > 0) && (inputValue > products[i].quantity_available)) {
+                            // push the error message
+                            errors.push(`We do not have ${arrayElement} available.`);
+                            // calculate the difference between the amount inputted and inventory amount
+                            var extra = arrayElement - products[i].quantity_available;
+                            document.getElementById(`qInput${i}`).value = arrayElement - extra;
+                            // show oupt in red
+                            document.getElementById(`quantity${i}_label`).style.color = "red";
+
+                        }
+                    }
+                }
+            }
+            return (returnErrors ? errors : (errors.length == 0));
+        };
+
+        function updateFavoritesUI() {
+            const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+            // apply favorites styling to the items in the cart
+            for (let pkey in shopping_cart) {
+                for (let i in shopping_cart[pkey]) {
+                    let quantities = shopping_cart[pkey][i];
+                    let item = products[pkey][i];
+                    let element = document.getElementById(`item_${pkey}_${i}`);
+                    if (element) {
+                        if (item.favorites) {
+                            element.classList.add("favorited"); // add a CSS class to indicate favorited item
+                        } else {
+                            element.classList.remove("favorited"); // remove the CSS class if not favorited
+                        }
+                    }
+                }
+            }
+
+            // apply favorites styling to the items on the current page
+            for (let i = 0; i < products[products_key].length; i++) {
+                const product = products[products_key][i];
+                const cartItem = document.getElementById(`item_${products_key}_${i}`);
+                if (cartItem) {
+                    if (favorites.includes(product)) {
+                        cartItem.classList.add("favorited");
+                    } else {
+                        cartItem.classList.remove("favorited");
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <!-- !PAGE CONTENT! -->
+    <!-- IR4: have an “add to favorites” icon for each item that when clicked, toggles an indication that an item is of interest (highlights/un-highlights icon). When the user views a product page, all favored items for that user will be highlighted. These should remain between page views. In the shopping cart, indicate which items are favored -->
+
+    <script>
+        // function to toggle favorite button status: some parts referenced from chatgpt and changed to highlight heart button
+        function toggleFavorite(button) {
+            event.preventDefault(); // prevent the default form submission
+            button.classList.toggle("favorite");
+
+            // get the corresponding product information
+            const productIndex = Array.from(document.querySelectorAll(".favoriteBtn")).indexOf(button);
+            const product = products[products_key][productIndex];
+            // check if the product is already favorited
+            const isFavorited = favorites.includes(name.nameId);
+            // add or remove the product from the favorites array
+            if (isFavorited) {
+                favorites.splice(favorites.indexOf(product), 1);
+            } else {
+                favorites.push(product);
+            }
+
+            // save the updated favorites array to local storage
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+        }
+
+        // function to load and apply favorites on page load
+        function loadFavorites() {
+            const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            // iterate through each product and check if it is in the favorites array
+            for (let i = 0; i < products[products_key].length; i++) {
+                const product = products[products_key][i];
+                const favoriteBtn = document.getElementById(`favoriteBtn${i}`);
+                // check if the product is favorited and apply the corresponding style
+                if (favorites.includes(product.id)) {
+                    favoriteBtn.classList.add("favorite");
+                } else {
+                    favoriteBtn.classList.remove("favorite");
+                }
+            }
+            // call the loadFavorites function when the window loads
+            window.onload = function () {
+                updateFavoritesUI(); // call the function to update favorites status
+                loadFavorites(); // call the function to load favorites from local storage
+            }
+        }
+    </script>
+
+    <div class="w3-main w3-content w3-padding" style="max-width:2000px;margin-top:100px">
+
+        <!-- top menu -->
+        <div class="w3-top">
+            <!-- sidebar (hidden by default) -->
+            <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left"
+                style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
+                <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">Close Menu</a>
+                <script>
+                    nav_bar(this_product_key, products_data);
+                </script>
+                <a href="./index.html" onclick="w3_close()" class="w3-bar-item w3-button">Home</a>
+                <a href="./login.html" onclick="w3_close()" class="w3-bar-item w3-button">Log In</a>
+                <a href="./register.html" onclick="w3_close()" class="w3-bar-item w3-button">Register</a>
+                <a href="./cart.html" onclick="w3_close()" class="w3-bar-item w3-button">My Cart</a>
+            </nav>
+            <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+                <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+                <div class="w3-center w3-padding-16">The Leo Store</div>
+            </div>
+        </div>
+        <form action="add_to_cart" method="POST" id="inputForm">
+            <main>
+                <script>
+                    document.write(`<input type = "hidden" name="products_key" value="${products_key}">`);
+                    for (i = 0; i < products[products_key].length; i++) { // modifed asst 3 example code
+
+                        document.write(`
+                      <div class="panel-body"><img src="${products[products_key][i].image}"</div>
+                        <p class="prodname">${products[products_key][i].name}</p>
+                        <p><strong>$${products[products_key][i].price.toFixed(2)}</strong></p>
+                        <p id="quantity[${i}]_label">Quantity:</p>
+                        <input type="text" placeholder="We have ${products[products_key][i].quantity_available} available" name="quantity${i}" id="quantity[${i}]" onkeyup="checkQuantityTextbox(this);">
+                        <input type="submit" class="button" value="Add to Cart" id="submit">
+                        <input type="button" class="button favoriteBtn" value="❤︎" onclick="toggleFavorite(this);">
+                    </div>
+        `);
+                    }
+                </script>
+            </main>
+
+            <script>
+                // make a hidden input box to store the products_key so it can be used on server side
+                document.write(`<input type='hidden' name='products_key' value='${products_key}'`);
+                // script to open and close sidebar
+                function w3_open() {
+                    document.getElementById("mySidebar").style.display = "block";
+                }
+
+                function w3_close() {
+                    document.getElementById("mySidebar").style.display = "none";
+                }
+            </script>
+        </form>
+
+</body>
+
+</html>

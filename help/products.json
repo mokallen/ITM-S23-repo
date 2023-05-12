@@ -1,0 +1,116 @@
+{
+    "Best Sellers": [
+        {
+            "name": "Leo Shirt",
+            "price": 20.00,
+            "image": "./images/shirt.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "I Love Leo Tee",
+            "price": 15.00,
+            "image": "./images/tee.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Leo Crewneck",
+            "price": 35.00,
+            "image": "./images/crew.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Leo Long Sleeve",
+            "price": 45.00,
+            "image": "./images/long.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Sorry! It's Because I'm a Leo Rising Tank",
+            "price": 10.00,
+            "image": "./images/tank.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Leo Varsity Jacket",
+            "price": 45.00,
+            "image": "./images/varsity.png",
+            "quantity_available": 10
+        }
+    ],
+    "Tools": [
+        {
+            "name": "Leo Bites",
+            "price": 7.00,
+            "image": "./images/bites.png",
+            "quantity_available": 20
+        },
+        {
+            "name": "Leo Endorsed Cat Tower",
+            "price": 30.00,
+            "image": "./images/tower.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Leo Natural Catnip",
+            "price": 10.00,
+            "image": "./images/catnip.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Leo's Deep Conditioning Day Shampoo",
+            "price": 8.00,
+            "image": "./images/shampoo.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Leo Collars for Handsome Cats",
+            "price": 15.00,
+            "image": "./images/collar.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Leo Claw Clippers",
+            "price": 12.00,
+            "image": "./images/clip.png",
+            "quantity_available": 10
+        }
+    ],
+    "Accessories": [
+        {
+            "name": "Leo Cap",
+            "price": 15.00,
+            "image": "./images/cap.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Leo Tote",
+            "price": 12.00,
+            "image": "./images/tote.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Leo x NewJeans Poster",
+            "price": 10.00,
+            "image": "./images/poster.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Leo Keychain",
+            "price": 5.00,
+            "image": "./images/keychain.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Leo Sticker",
+            "price": 3.00,
+            "image": "./images/sticker.png",
+            "quantity_available": 10
+        },
+        {
+            "name": "Leonius' Tunes Vinyl",
+            "price": 30.00,
+            "image": "./images/vinyl.png",
+            "quantity_available": 10
+        }
+    ]
+}

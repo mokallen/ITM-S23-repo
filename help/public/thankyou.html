@@ -1,0 +1,58 @@
+<!-- thank you page for when user confirms their purchase -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank you for shopping with us!</title>
+
+<body style="background-color: white; width: 1000px;"></body>
+</head>
+<script>
+    // referenced from jaden morga f22
+    // author: bao vy tran
+    // looks for a cookie with the name user_cookie in the user's browser and attempts to parse it as JSON
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                var string = c.substring(name.length, c.length);
+                return JSON.parse(string);
+            }
+        }
+        return "";
+    }
+    // defines variables
+    if (getCookie('user_cookie') != false) {
+        var user_cookie = getCookie('user_cookie');
+        var name = user_cookie['name'];
+        var email = user_cookie['email'];
+    }
+</script>
+
+<body>
+
+    <h2>Thank you for shopping with The Leo Store!</h2>
+
+    </script>
+    <br>
+    <script>
+        document.write(`
+        <p>Your invoice will be emailed to ${email}!</p>
+        `)
+    </script>
+    <form action="logout_done" method="GET">
+        <input type="submit" value="Logout">
+
+    </form>
+</body>
+
+</html>

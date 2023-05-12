@@ -1,0 +1,85 @@
+<!-- monika allen -->
+<!-- this is the homepage site. it helps to generate the products for products display -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- author: ww3 schools -->
+    <title>The Leo Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="products-style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Karma", sans-serif
+        }
+
+        .w3-bar-block .w3-bar-item {
+            padding: 20px
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- top menu -->
+    <div class="w3-top">
+        <!-- sidebar (hidden by default) -->
+        <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left"
+            style="display:none;z-index:2;width:40%;min-width:200px" id="mySidebar">
+            <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">Close Menu</a>
+        </nav>
+        <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+            <div class="w3-center w3-padding-16">TThe Leo Store</div>
+        </div>
+    </div>
+
+    <form action="process_form" method="POST" id="inputForm">
+        <main>
+
+            <script>
+                // loop displays the products arrays with name, quantity, price and image
+                // code referenced from store 1 WOD
+
+                for (let i = 0; i < products.length; i++) {
+
+                    document.write(`
+        <div class="w3-third">
+            <img src="${products[i].image}">
+            <h2>${products[i].name}</h2>
+            <p>$${products[i].price}</p>
+            <h3>${products[i].quantity_available} avaliable</h3>
+            <h3>${products[i].total_sold} sold</h3>
+            <div style="width:80%; margin-left:10%;">
+                <label id="quantity${i}_label"}" style="font-size: 13px;">Quantity</label>
+                <span><input style="width:30px;" type="text" placeholder="0" name="quantity${i}" id="qInput${i}"  onchange="checkQuantityTextbox(this)"> 
+            </div>
+        </div>
+        <br>
+`);
+                }
+            </script>
+
+            </script>
+        </main>
+        </div>
+
+        <div class="container">
+            <div class="center">
+                <br><input type="submit" class="button" value="Purchase" id="submit" name="purchase_submit">
+            </div>
+        </div>
+
+    </form>
+
+</body>
+
+</html>

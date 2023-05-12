@@ -1,0 +1,200 @@
+html {
+	box-sizing: border-box
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit
+}
+
+
+html {
+	border: 0;
+	box-sizing: content-box;
+	text-align: center;
+	color: inherit;
+	font-family: "Karma", sans-serif;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	vertical-align: top;
+}
+
+body {
+	background-color: white;
+}
+
+
+/* heading */
+
+h2 {
+	font: bold 100% sans-serif;
+	letter-spacing: 0.5em;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+
+/* table */
+
+table {
+	font-size: 75%;
+	table-layout: fixed;
+	width: 100%;
+}
+
+table {
+	border-collapse: separate;
+	border-spacing: 2px;
+}
+
+th,
+td {
+	border-width: 1px;
+	padding: 0.5em;
+	position: relative;
+	text-align: left;
+}
+
+th,
+td {
+	border-radius: 0.25em;
+	border-style: solid;
+}
+
+th {
+	background: lightsteelblue;
+	border-color: white;
+}
+
+td {
+	border-color: lightsteelblue;
+}
+
+/* page */
+
+html {
+	font: 16px/1 "Karma", sans-serif;
+	;
+	overflow: auto;
+	padding: 0.5in;
+}
+
+/* header */
+
+header {
+	margin: 0 0 3em;
+}
+
+header:after {
+	clear: both;
+	content: "";
+	display: table;
+}
+
+header h1 {
+	background: #000;
+	border-radius: 0.25em;
+	color: white;
+}
+
+/* article */
+
+article,
+article address,
+table.meta,
+table.inventory {
+	margin: 0 0 3em;
+}
+
+article:after {
+	clear: both;
+	content: "";
+	display: table;
+}
+
+article h1 {
+	clip: rect(0 0 0 0);
+	position: absolute;
+}
+
+article address {
+	float: left;
+	font-size: 125%;
+	font-weight: bold;
+}
+
+
+
+/* table items */
+
+table.inventory {
+	clear: both;
+	width: 100%;
+}
+
+table.inventory th {
+	font-weight: bold;
+	text-align: center;
+}
+
+table.inventory td:nth-child(1) {
+	width: 26%;
+}
+
+table.inventory td:nth-child(2) {
+	width: 38%;
+}
+
+table.inventory td:nth-child(3) {
+	text-align: right;
+	width: 15%;
+}
+
+table.inventory td:nth-child(4) {
+	text-align: right;
+	width: 15%;
+}
+
+table.inventory td:nth-child(5) {
+	text-align: right;
+	width: 15%;
+}
+
+/* table balance */
+
+table.balance th,
+table.balance td {
+	width: 50%;
+}
+
+table.balance td {
+	text-align: right;
+}
+
+/* aside */
+
+aside h1 {
+	border: none;
+	border-width: 0 0 1px;
+	margin: 0 0 1em;
+}
+
+aside h1 {
+	border-color: #999;
+	border-bottom-style: solid;
+}
+
+.button {
+	float: right;
+	background-color: white;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+}
